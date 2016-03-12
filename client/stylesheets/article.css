@@ -1,0 +1,447 @@
+body {
+    font-family: "微软雅黑";
+    background-color: #eee;
+}
+.xk-navbar-brand{
+    padding: 5px 15px;
+}
+.xk-navbar-blue{
+    background-color: rgb(73, 145, 207);
+}
+.xk-input-group-addon1{
+    border-bottom: 0;
+    border-radius: 4px 0 0 0;
+}
+.xk-input-group-addon2{
+    border-radius: 0 0 0 4px;
+    height: 50px;
+}
+a.xk-navbar-login{
+    outline: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+@media (min-width: 768px){
+    .xk-modal-dialog{
+        width: 433px;
+    }
+}
+.glyphicon {
+    font-size: 12px;
+    padding-right: 2px;
+    padding-left: 2px;
+}
+div.modal-header,div.modal-footer{
+    border: 0;
+}
+/*用户登录---------*/
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+    margin-bottom: 10px;
+}
+.form-signin .checkbox {
+    font-weight: normal;
+    padding: 0px;
+}
+.form-signin .form-control {
+    position: relative;
+    height: auto;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 20px;
+}
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+.form-signin input[type="text"]:focus {
+    z-index: 10;
+}
+.form-signin input[type="text"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+    /*margin-bottom: 10px;*/
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.form-signin i.glyphicon{
+    padding: 0;
+    font-size: 20px;
+}
+/*-------用户登录*/
+
+mark {
+    padding: 0;
+    color: red;
+    background-color: transparent;
+}
+.error-place{
+    display: none;
+}
+.blog-error {
+    display: block;
+    text-align: center;
+    /*width: 320px;*/
+    color: rgb(255, 60, 60);
+    font-weight: bold;
+    font-size: medium;
+    margin-top: -4px;
+}
+
+.blog-success {
+    display: block;
+    text-align: center;
+    /*width: 320px;*/
+    color: #45DF87;
+    font-weight: bold;
+    font-size: medium;
+    margin-top: -4px;
+}
+
+.glyphicon-thumbs-up {
+    color: red;
+}
+
+.glyphicon-eye-open, .glyphicon-eye-close {
+    position: absolute;
+    top: 30%;
+    left: 90%;
+    z-index: 30;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.articles-left {
+    padding-top: 20px;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.articles-right a,
+.articles-right a:hover {
+    display: inline-block;
+    color: #000;
+    font-size: 18px;
+}
+
+.articles-right a:nth-child(2):hover,
+.articles-right a:nth-child(3):hover {
+    color: #000;
+}
+
+.articles-right a:nth-child(2),
+.articles-right a:nth-child(3) {
+    float: right;
+    margin-left: 20px;
+    margin-top: 10px;
+    color: #888;
+}
+.article-hot{
+    padding-left: 0px;
+    margin-bottom: 0px;
+    list-style: none;
+}
+ol.article-hot li a{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+    text-decoration: blink;
+}
+ol.article-hot li a i{
+    margin-right: 10px;
+    background-color: #bbb;
+    padding: 0 5px;
+    font-style: normal;
+    color: #fff;
+    border-radius: 2px;
+}
+ol.article-hot li:nth-child(1) a i,ol.article-hot li:nth-child(2) a i,ol.article-hot li:nth-child(3) a i {
+    background-color: rgb(200, 15, 15);
+}
+
+.head {
+    margin: 10px auto 0 auto;
+    width: 80px;
+    display: inline-block;
+    position: absolute;
+    top: 0px;
+    left: 493px;
+    width: 80px;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 40px;
+}
+
+.head-panel {
+    display: none;
+    color: #000;
+    width: 205px;
+    height: 70px;
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.head-panel div {
+    color: #000;
+}
+
+.head-panel div:nth-child(2) {
+    color: #000;
+    display: inline;
+    font-size: 12px;
+}
+
+.head-panel div a {
+    margin: 0 50px;
+    font-size: 12px;
+    font-weight: normal;
+    color: #000;
+}
+
+.mood {
+    padding-top: 95px;
+}
+
+.head-circle {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: 2px solid #fff;
+}
+
+.articles-left-list {
+    margin: 40px 0 0;
+    list-style: none;
+    padding: 20px 0 20px 50px;
+}
+
+ul.articles-left-list li i {
+    padding-right: 10px;
+}
+
+ul.articles-left-list li {
+    padding: 5px 0;
+}
+
+.articles-left-list a:hover,
+.articles-left-list a:focus,
+.articles-left-list a {
+    cursor: pointer;
+    color: #888;
+}
+img{
+    max-width:100%;
+}
+
+.article {
+    padding: 20px;
+}
+
+.article footer > span {
+    margin-right: 40px;
+}
+
+.article:hover {
+    background-color: #fff;
+}
+
+a.hide-link {
+    display: none;
+}
+
+.article:hover a.hide-link,
+.article:hover a.hide-link {
+    display: inline-block;
+}
+
+.article header h4 {
+    /*white-space: nowrap;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*max-width: 600px;*/
+    word-break:break-all;
+}
+
+.article > p {
+    text-indent: 20px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+    margin: 20px 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.articles-bottom {
+    text-align: center;
+}
+/*************article_details文章详情页样式**************/
+
+.article_details {
+    padding: 0 20px 40px 20px;
+}
+
+.article_details > header {
+    margin: 20px 0;
+}
+
+.article-body {
+    padding: 20px 0px;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+    word-wrap: break-word;
+}
+
+
+.article_details {
+    background-color: #fff;
+}
+.article_details header span{
+    margin-right:40px;
+}
+.article-favor{
+    cursor: pointer;
+    -webkit-user-select:none;
+}
+
+.article-details-op {
+    padding-top: 20px;
+    width: 100%;
+    height: 40px;
+}
+.article-details-op:hover a{
+    display: inline-block;
+}
+.article-details-op a {
+    float: right;
+    display: none;
+}
+
+.article-details-op a:first-child {
+    float: left;
+    display: inline-block;
+}
+
+.article-details-op a:nth-child(3) {
+    margin-right: 40px;
+}
+
+.icon-flip {
+    -webkit-transform: scale(-1, 1);
+}
+.datetimepicker{
+    margin: auto;
+}
+
+/****************右边工具栏******************/
+ul.right-side-bar{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    /*background-color: rgb(73, 145, 207);*/
+}
+ul.right-side-bar li{
+    display: inline-block;
+    /*height: 40px;*/
+    /*background-color: rgb(73, 145, 207);*/
+}
+
+#rightSideBar {
+    z-index:10000;
+    position: fixed;
+    top: 50%;
+    left: 90%;
+    cursor: pointer;
+    /*margin-top: -50px;*/
+    /*margin-left: 520px;*/
+    /*width: 100px;*/
+    text-align: center;
+    background: transparent;
+}
+@media (min-width:768px) {
+    #rightSideBar {
+        width: 73px;
+    }
+}
+.toolbar-no-hover{
+    margin-bottom: 1px;
+    display: none;
+    padding: 9px 4px;
+    color: #fff;
+    width: 100%;
+}
+#publish.toolbar-no-hover:before{
+    content: '发表文章';
+}
+.toolbar-hover{
+    font-size: 14px;
+    /*color: #fff;*/
+    padding: 8px 0px;
+    width: 100%;
+    margin-top: -1px;
+    margin-bottom: 2px;
+}
+
+#update.toolbar-no-hover:before{
+    content: '更新文章';
+}
+
+#nextArticle.toolbar-no-hover:before{
+    content: '下一篇';
+}
+
+#previousArticle.toolbar-no-hover:before{
+    content: '上一篇';
+}
+
+/*默认样式，主要是position:fixed实现屏幕绝对定位*/
+#goToTop {
+    display: none;
+}
+/*用CSS表达式(expression)来实现ie6下position:fixed效果*/
+#goToTop {
+    _position: absolute;
+    _top: expression(documentElement.scrollTop + documentElement.clientHeight * 3/4 + "px")
+}
+
+/*鼠标进入的反馈效果*/
+#goToTop.toolbar-top-hover {
+    font-size: 16px;
+    /*color: #fff;*/
+    padding: 8px 0px;
+    width: 100%;
+    margin-top: -1px;
+}
+#goToTop.toolbar-top-no-hover:before{
+    content: '返回顶部';
+}
+#goToTop.toolbar-top-no-hover {
+    /*background: rgb(73, 145, 207);*/
+    color: #fff;
+    padding: 10px 6px;
+}
+.editor-style img[data-emoji], .simditor .simditor-body img[data-emoji]{
+    padding: 0;
+}
+
+#loading{
+    display: none;
+    background-image: url('../images/loading.gif');
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+     float: right;
+    /* margin: auto; */
+    background-size: 27px;
+    padding: 0;
+}
