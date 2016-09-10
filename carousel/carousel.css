@@ -53,8 +53,8 @@ i.loading-ball{
     background: transparent;
     border-radius: 50%;
     position: absolute;
-    left: 45%;
-    top: 45%;
+    left: 47%;
+    top: 43%;
     z-index: 12;
     border: 2px solid #eee;
     animation:load 1s infinite linear;

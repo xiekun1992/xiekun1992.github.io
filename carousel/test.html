@@ -126,10 +126,14 @@
 						resetStart(i);
 						$(".v"+queue[i])[0].pause();
 						$(".v"+queue[i])[1].pause();
+						$(".v"+queue[i])[0].currentTime=0;
+						$(".v"+queue[i])[1].currentTime=0;
 						break;
 					default:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(90+full/2*(i*2-1))+'deg ) translateZ( '+translateZ+'px )','width':panelWidth});
 					$(".v"+queue[i])[0].pause();
 					$(".v"+queue[i])[1].pause();
+					$(".v"+queue[i])[0].currentTime=0;
+					$(".v"+queue[i])[1].currentTime=0;
 					break;
 				}
 			}
