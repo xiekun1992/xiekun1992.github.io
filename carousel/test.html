@@ -17,36 +17,52 @@
 	  <div id="carousel">
 	    <figure>
 	    	<video class="v0" src="iceage4-4.mp4" autoplay></video>
-	    	<div class="rel">
+	    	<div class="loading">
+	    		<i class="loading-ball"></i>
+	    	</div>
+	    	<div class="rel dn">
 	    		<video class="v0 reflection" src="iceage4-4.mp4" autoplay></video>
-	    		<div class="overlay"></div>
+	    		<span class="overlay"></span>
 	    	</div>
 			</figure>
-	    <figure><video class="v1" src="xlt-1.mp4" autoplay></video>
-	    <div class="rel">
+	    <figure>
+		    <video class="v1" src="xlt-1.mp4" autoplay></video>
+		    <div class="loading">
+	    		<i class="loading-ball"></i>
+	    	</div>
+		    <div class="rel dn">
 	    		<video class="v1 reflection" src="xlt-1.mp4" autoplay></video>
-	    		<div class="overlay"></div>
+	    		<span class="overlay"></span>
 	    	</div>
 			</figure>
 	    <figure>
 	    	<video class="v2" src="xlt-3.mp4" autoplay></video>
-	    	<div class="rel">
+	    	<div class="loading">
+	    		<i class="loading-ball"></i>
+	    	</div>
+	    	<div class="rel dn">
 	    		<video class="v2 reflection" src="xlt-3.mp4" autoplay></video>
-	    		<div class="overlay"></div>
+	    		<span class="overlay"></span>
 	    	</div>
 			</figure>
 	    <figure>
 	    	<video class="v3" src="mov_bbb.mp4" autoplay></video>
-				<div class="rel">
+	    	<div class="loading">
+	    		<i class="loading-ball"></i>
+	    	</div>
+				<div class="rel dn">
 	    		<video class="v3 reflection" src="mov_bbb.mp4" autoplay></video>
-	    		<div class="overlay"></div>
+	    		<span class="overlay"></span>
 	    	</div>
 	    </figure>
 	    <figure>
 	    	<video class="v4" src="xlt-2.mp4" autoplay></video>
-	    	<div class="rel">
+	    	<div class="loading">
+	    		<i class="loading-ball"></i>
+	    	</div>
+	    	<div class="rel dn">
 	    		<video class="v4 reflection" src="xlt-2.mp4" autoplay></video>
-	    		<div class="overlay"></div>
+	    		<span class="overlay"></span>
 	    	</div>
 	  </div>
 	</section>          
@@ -67,6 +83,20 @@
 	for(var i=number;i--;){
 		queue.push(i);
 	}
+	var vs=$("[class^=v]"),canplayCount=0;
+	$.each(vs,function(i,o){
+		o.oncanplay=function(){
+			var x=o;
+			$(x).siblings('div').toggleClass('dn');
+			canplayCount++;
+			if(canplayCount>=vs.length){
+				playAnimation();
+			}
+			o.oncanplay=null;
+		};
+		o.volume=0;
+	});
+	console.log(vs)
 	for(var i=0,len=queue.length;i<len;i++){
 		switch(i){
 			case 0:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(0)+'deg ) translateZ( '+translateZ+'px )','width':'250px'});
@@ -80,29 +110,31 @@
 			break;
 		}
 	}
-	setInterval(function(){
-		queue.unshift(queue.pop());
-		for(var i=0,len=queue.length;i<len;i++){
-			switch(i){
-				case 0:
-					$("#carousel figure:eq("+queue[i]+")").css({'animation':'rtl 0.8s 1 forwards linear','width':panelWidth});
-					legendAnimation(queue[i]);
-					$(".v"+queue[i])[0].play();
-					$(".v"+queue[i])[1].play();
-					break;
-				case 1:
-					$("#carousel figure:eq("+queue[i]+")").css({'animation':'ltr 0.8s 1 forwards linear','width':panelWidth});
-					resetStart(i);
+	function playAnimation(){
+		setInterval(function(){
+			queue.unshift(queue.pop());
+			for(var i=0,len=queue.length;i<len;i++){
+				switch(i){
+					case 0:
+						$("#carousel figure:eq("+queue[i]+")").css({'animation':'rtl 0.8s 1 forwards linear','width':panelWidth});
+						legendAnimation(queue[i]);
+						$(".v"+queue[i])[0].play();
+						$(".v"+queue[i])[1].play();
+						break;
+					case 1:
+						$("#carousel figure:eq("+queue[i]+")").css({'animation':'ltr 0.8s 1 forwards linear','width':panelWidth});
+						resetStart(i);
+						$(".v"+queue[i])[0].pause();
+						$(".v"+queue[i])[1].pause();
+						break;
+					default:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(90+full/2*(i*2-1))+'deg ) translateZ( '+translateZ+'px )','width':panelWidth});
 					$(".v"+queue[i])[0].pause();
 					$(".v"+queue[i])[1].pause();
 					break;
-				default:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(90+full/2*(i*2-1))+'deg ) translateZ( '+translateZ+'px )','width':panelWidth});
-				$(".v"+queue[i])[0].pause();
-				$(".v"+queue[i])[1].pause();
-				break;
+				}
 			}
-		}
-	},3000);
+		},5000);
+	}
 	function resetStart(i){
 		setTimeout(function(){
 			$("#carousel figure:eq("+queue[i]+")").css({'animation':'none','transform':'rotateY( '+(90+full/2*(i*2-1))+'deg ) translateZ( '+translateZ+'px )','width':panelWidth});
