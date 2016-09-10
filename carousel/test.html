@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Carousel</title>
+	<link rel="stylesheet" href="carousel.css">
+</head>
+<body>
+	<section class="container">
+	  <ul id="legend">
+	  	<!-- <li></li>
+	  	<li></li>
+	  	<li></li>
+	  	<li></li>
+	  	<li></li> -->
+	  </ul>
+	  <div id="carousel">
+	    <figure><img src="xx.gif" ><div class="reflection"></div>
+				<div class="overlay"></div></figure>
+	    <figure><img src="xx.gif" ><div class="reflection"></div>
+				<div class="overlay"></div></figure>
+	    <figure><img src="xx.gif" ><div class="reflection"></div>
+				<div class="overlay"></div></figure>
+	    <figure><img src="xx.gif" ><div class="reflection"></div>
+				<div class="overlay"></div></figure>
+	    <figure><video src="movie.mp4" autoplay/><div class="reflection"></div>
+	  </div>
+	</section>          
+	<script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<script src="venture.carousel.js"></script>
+	<script>
+	$("#c").carousel();
+	var containerWidth=300;
+	var panelWidth=containerWidth/5*3+'px';
+	$("#carousel>figure").css('width',panelWidth);
+	var number=$("#carousel>figure").length;
+	var full=(180/(number-1));//.toFixed(2);
+	var translateZ=containerWidth/2/Math.tan(Math.PI/(number-1)/2);
+	var startIndex=0;
+	console.log(full,translateZ);
+	var carousel=$("#carousel");
+	var queue=[];
+	for(var i=number;i--;){
+		queue.push(i);
+	}
+	for(var i=0,len=queue.length;i<len;i++){
+		switch(i){
+			case 0:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(0)+'deg ) translateZ( '+translateZ+'px )','width':'250px'});
+					// legendAnimation(queue[i]);
+				break;
+			default:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(90+full/2*(i*2-1))+'deg ) translateZ( '+translateZ+'px )','width':panelWidth});break;
+		}
+	}
+	setInterval(function(){
+		queue.unshift(queue.pop());
+		for(var i=0,len=queue.length;i<len;i++){
+			switch(i){
+				case 0:
+					$("#carousel figure:eq("+queue[i]+")").css({'animation':'rtl 0.8s 1 forwards linear','width':panelWidth});
+					legendAnimation(queue[i]);
+					break;
+				case 1:
+					$("#carousel figure:eq("+queue[i]+")").css({'animation':'ltr 0.8s 1 forwards linear','width':panelWidth});
+					resetStart(i);
+					break;
+				default:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(90+full/2*(i*2-1))+'deg ) translateZ( '+translateZ+'px )','width':panelWidth});break;
+			}
+		}
+	},3000);
+	function resetStart(i){
+		setTimeout(function(){
+			$("#carousel figure:eq("+queue[i]+")").css({'animation':'none','transform':'rotateY( '+(90+full/2*(i*2-1))+'deg ) translateZ( '+translateZ+'px )','width':panelWidth});
+		},1500);
+
+	}
+	function legendAnimation(n){
+		if(n==0){
+			$("#legend").html('');
+		}
+		setTimeout(function(){
+				$("#legend").append('<li style="width:1000px;" class="slide-in"><span class="pos-in">tab'+n+'!</span></li>');
+		},1000);
+	}
+	</script>
+</body>
+</html>
