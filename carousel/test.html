@@ -15,15 +15,39 @@
 	  	<li></li> -->
 	  </ul>
 	  <div id="carousel">
-	    <figure><video src="mov_bbb.mp4" autoplay/><div class="reflection"></div>
-				<div class="overlay"></div></figure>
-	    <figure><img src="xx.gif" ><div class="reflection"></div>
-				<div class="overlay"></div></figure>
-	    <figure><img src="xx.gif" ><div class="reflection"></div>
-				<div class="overlay"></div></figure>
-	    <figure><img src="xx.gif" ><div class="reflection"></div>
-				<div class="overlay"></div></figure>
-	    <figure><video src="movie.mp4" autoplay/><div class="reflection"></div>
+	    <figure>
+	    	<video class="v0" src="iceage4-4.mp4" autoplay></video>
+	    	<div class="rel">
+	    		<video class="v0 reflection" src="iceage4-4.mp4" autoplay></video>
+	    		<div class="overlay"></div>
+	    	</div>
+			</figure>
+	    <figure><video class="v1" src="xlt-1.mp4" autoplay></video>
+	    <div class="rel">
+	    		<video class="v1 reflection" src="xlt-1.mp4" autoplay></video>
+	    		<div class="overlay"></div>
+	    	</div>
+			</figure>
+	    <figure>
+	    	<video class="v2" src="xlt-3.mp4" autoplay></video>
+	    	<div class="rel">
+	    		<video class="v2 reflection" src="xlt-3.mp4" autoplay></video>
+	    		<div class="overlay"></div>
+	    	</div>
+			</figure>
+	    <figure>
+	    	<video class="v3" src="mov_bbb.mp4" autoplay></video>
+				<div class="rel">
+	    		<video class="v3 reflection" src="mov_bbb.mp4" autoplay></video>
+	    		<div class="overlay"></div>
+	    	</div>
+	    </figure>
+	    <figure>
+	    	<video class="v4" src="xlt-2.mp4" autoplay></video>
+	    	<div class="rel">
+	    		<video class="v4 reflection" src="xlt-2.mp4" autoplay></video>
+	    		<div class="overlay"></div>
+	    	</div>
 	  </div>
 	</section>          
 	<script src="//cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
@@ -46,9 +70,14 @@
 	for(var i=0,len=queue.length;i<len;i++){
 		switch(i){
 			case 0:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(0)+'deg ) translateZ( '+translateZ+'px )','width':'250px'});
+				$(".v"+queue[i])[0].play();
+				$(".v"+queue[i])[1].play();
 					// legendAnimation(queue[i]);
 				break;
-			default:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(90+full/2*(i*2-1))+'deg ) translateZ( '+translateZ+'px )','width':panelWidth});break;
+			default:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(90+full/2*(i*2-1))+'deg ) translateZ( '+translateZ+'px )','width':panelWidth});
+			$(".v"+queue[i])[0].pause();
+			$(".v"+queue[i])[1].pause();
+			break;
 		}
 	}
 	setInterval(function(){
@@ -58,12 +87,19 @@
 				case 0:
 					$("#carousel figure:eq("+queue[i]+")").css({'animation':'rtl 0.8s 1 forwards linear','width':panelWidth});
 					legendAnimation(queue[i]);
+					$(".v"+queue[i])[0].play();
+					$(".v"+queue[i])[1].play();
 					break;
 				case 1:
 					$("#carousel figure:eq("+queue[i]+")").css({'animation':'ltr 0.8s 1 forwards linear','width':panelWidth});
 					resetStart(i);
+					$(".v"+queue[i])[0].pause();
+					$(".v"+queue[i])[1].pause();
 					break;
-				default:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(90+full/2*(i*2-1))+'deg ) translateZ( '+translateZ+'px )','width':panelWidth});break;
+				default:$("#carousel figure:eq("+queue[i]+")").css({'transform':'rotateY( '+(90+full/2*(i*2-1))+'deg ) translateZ( '+translateZ+'px )','width':panelWidth});
+				$(".v"+queue[i])[0].pause();
+				$(".v"+queue[i])[1].pause();
+				break;
 			}
 		}
 	},3000);
