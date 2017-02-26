@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+	body, ul, li{
+		font-family: 'Microsoft yahei';
+		margin: 0;
+		padding: 0;
+		font-size: 14px;
+	}
+	*{
+		box-sizing: border-box;
+	}
+	ul,li{
+		list-style: none;
+		float: left;
+		width: 100%;
+	}
+	ul{
+		border-left: 4px solid #3da1ff;
+		/*padding-left: 10px;*/
+	}
+	li{
+		position: relative;
+		border-bottom: 1px solid #ccc;
+		padding: 5px;
+		/*box-shadow: 0 0 0px #bbb;*/
+		margin: 1px 0;
+	}
+	li:before{
+		content: '';
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		position: absolute;
+		background-color: #3da1ff;
+		border: 2px solid #fff;
+		left: -9px;
+		top: 4px;
+		box-shadow: 0 0 0px #555;
+	}
+	.left{
+		width: 200px;
+		background-color: #fefefe;
+		border-right: 1px solid #ccc;
+		text-align: center;
+		position: fixed;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+	}
+	.right{
+		margin-left: 200px;
+		padding: 10px;
+	}
+	.tag{
+		/*width: 100%;*/
+		float: left;
+	}
+	.tag div{
+		display: inline-block;
+		padding: 2px 5px;
+		color: #fff;
+		text-shadow: 1px 0 1px #000;
+		background-color: #E6501E;
+		float: left;
+		font-size: 12px;
+		margin-right: 10px;
+		border-radius: 2px;
+
+	}
+	.title{
+		float: left;
+		margin: 0 20px;
+		/*font-size: 14px;*/
+	}
+	.title a{
+		color: #555;
+		text-decoration: none;
+	}
+	.modal{
+		position: fixed;
+		top: -300px;
+		background-color: #fff;
+		box-shadow: 0 0 10px #aaa;
+		border-radius: 5px;
+		padding: 20px;
+		transition: top 0.3s;
+		width: 400px;
+	}
+	.modal>div{
+		margin-bottom: 10px;
+	}
+	.modal>div>input{
+		width: 100%;
+	}
+
+
+	.clearfix:after{
+		content: '';
+		display: table;
+		clear: both;
+	}
+	</style>
+</head>
+<body>
+	<div class="left">
+		<img src="https://img.wdstatic.cn/console/images/logo-632b60596e.svg" alt="">
+		<div>
+			<button>Recently Used</button>
+			<button onclick="showAdd()">Add</button>
+		</div>
+	</div>
+	<div class="right clearfix">
+		<ul id="bookmarks">no bookmarks.</ul>
+	</div>
+
+	<div class="modal" id="modal">
+		<div>
+			<b>Add bookmark</b>
+		</div>
+		<div>
+			<label for="title">Title</label>
+			<input type="text" id="title" name="title">
+		</div>
+		<div>
+			<label for="url">URL</label>
+			<input type="url" id="url" name="url">
+		</div>
+		<div>
+			<input type="submit" value="Submit" onclick="add()">
+		</div>
+		<div>
+			<input type="button" value="Cancel" onclick="hideAdd()">
+		</div>
+	</div>
+		
+	<script src = "https://cdn.wilddog.com/sdk/js/2.5.2/wilddog.js"></script>
+	<script>
+		modal.style.left = (document.body.clientWidth - modal.clientWidth) / 2 + 'px';
+		function showAdd(){
+			modal.style.top = 0;
+		}
+		function hideAdd(){
+			modal.style.top = -(10 + modal.clientHeight) + 'px';
+		}
+		function add(){
+			var date = new Date();
+			var bookmark = {};
+			bookmark = {
+				'title': title.value,
+				'url': url.value,
+				'date': date
+			};
+			ref.child("bookmarks").push(bookmark, function(error){
+				if(error){
+					alert(error);
+				}else{
+					title.value = url.value = '';
+					hideAdd();
+					list();
+				}
+			});		
+		}
+
+
+		var config = {
+		  syncURL: "https://xkfront-5220.wilddogio.com" //输入节点 URL
+		};
+		wilddog.initializeApp(config);
+		var ref = wilddog.sync().ref();
+
+
+		// ref.update({
+		//   "messageboard":{
+		//     "message1":{
+		//         "content" : "Wilddog, Cool!!!!!",
+		//         "presenter" : "Jack"
+		//     }
+		//   }
+		// });
+		// ref.child("Jobs").set({
+		//     "full_name": "Steve Jobs",
+		//     "gender": "male"
+		// }, function(error) {
+		//     if (error == null){
+		//         // alert('数据同步到野狗云端成功完成');
+		//     }
+		// });
+		list();
+		function list(){
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4){
+					console.log(xhr.responseText);
+					if(xhr.status == 200){
+						var bms = JSON.parse(xhr.responseText), html = "";
+						for(var b in bms){
+							html += '<li>' +
+								'<b class="title"><a href="' + bms[b].url + '" target="_blank">' + bms[b].title + '</a></b>' +
+								'<div class="tag">' +
+									'<div>nodejs</div>' +
+									'<div>test</div>' +
+								'</div>' +
+							'</li>';
+						}
+						bookmarks.innerHTML = html;
+					}
+				}
+			};
+			xhr.open('GET', config.syncURL + '/bookmarks.json', true);
+			xhr.send();
+		}
+	</script>
+</body>
+</html>
