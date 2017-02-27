@@ -18,18 +18,18 @@
 		float: left;
 		width: 100%;
 	}
-	ul{
+	ul.bookmarks{
 		border-left: 4px solid #3da1ff;
 		/*padding-left: 10px;*/
 	}
-	li{
+	.bookmarks li{
 		position: relative;
 		border-bottom: 1px solid #ccc;
 		padding: 5px;
 		/*box-shadow: 0 0 0px #bbb;*/
 		margin: 1px 0;
 	}
-	li:before{
+	.bookmarks li:before{
 		content: '';
 		width: 10px;
 		height: 10px;
@@ -43,8 +43,8 @@
 	}
 	.left{
 		width: 200px;
-		background-color: #fefefe;
-		border-right: 1px solid #ccc;
+		background-color: #f7f7f7;
+    	border-right: 2px solid #ccc;
 		text-align: center;
 		position: fixed;
 		top: 0;
@@ -104,21 +104,63 @@
 		display: table;
 		clear: both;
 	}
+	.menu{
+	    border-top: 1px solid #bbb;
+	    padding-top: 4px;
+	    width: 90%;
+	    display: inline-block;
+	    float: none;
+	}
+	.menu li a{
+		text-decoration: none;
+		color: #3da1ff;
+		display: block;
+		padding: 5px 0;
+	}
+	.menu li a:hover{
+		background-color: #3da1ff;
+		color: #fff;
+	}
 	</style>
 </head>
 <body>
 	<div class="left">
-		<img src="https://img.wdstatic.cn/console/images/logo-632b60596e.svg" alt="">
+		<img src="https://img.wdstatic.cn/console/images/logo-632b60596e.svg" width="150" style="margin: 20px 0;">
 		<div>
-			<button>Recently Used</button>
-			<button onclick="showAdd()">Add</button>
+			<ul class="menu">
+				<li><a href="javascript:void(0)">Recently Used</a></li>
+				<li><a href="javascript:void(0)">View By Tags</a></li>
+			</ul>
+			<ul class="menu">
+				<li><a href="javascript:void(0)" onclick="showBmAdd()">Add Bookmark</a></li>
+				<li><a href="javascript:void(0)" onclick="showTagAdd()">Add Tag</a></li>
+			</ul>
 		</div>
 	</div>
 	<div class="right clearfix">
-		<ul id="bookmarks">no bookmarks.</ul>
+		<ul id="bookmarks" class="bookmarks">no bookmarks.</ul>
 	</div>
 
-	<div class="modal" id="modal">
+	<div class="modal" id="tagModal">
+		<div>
+			<b>Add tag</b>
+		</div>
+		<div>
+			<label for="title">Name</label>
+			<input type="text" id="tagName" name="title">
+		</div>
+		<div>
+			<label for="url">Icon URL</label>
+			<input type="url" id="tagIconUrl" name="url">
+		</div>
+		<div>
+			<input type="submit" value="Submit" onclick="addTag()">
+		</div>
+		<div>
+			<input type="button" value="Cancel" onclick="hideAdd(this.parentNode.parentNode)">
+		</div>
+	</div>
+	<div class="modal" id="bookmarkModal">
 		<div>
 			<b>Add bookmark</b>
 		</div>
@@ -131,23 +173,26 @@
 			<input type="url" id="url" name="url">
 		</div>
 		<div>
-			<input type="submit" value="Submit" onclick="add()">
+			<input type="submit" value="Submit" onclick="addBookmark()">
 		</div>
 		<div>
-			<input type="button" value="Cancel" onclick="hideAdd()">
+			<input type="button" value="Cancel" onclick="hideAdd(this.parentNode.parentNode)">
 		</div>
 	</div>
 		
 	<script src = "https://cdn.wilddog.com/sdk/js/2.5.2/wilddog.js"></script>
 	<script>
-		modal.style.left = (document.body.clientWidth - modal.clientWidth) / 2 + 'px';
-		function showAdd(){
-			modal.style.top = 0;
+		tagModal.style.left = bookmarkModal.style.left = (document.body.clientWidth - bookmarkModal.clientWidth) / 2 + 'px';
+		function showBmAdd(){
+			bookmarkModal.style.top = 0;
 		}
-		function hideAdd(){
-			modal.style.top = -(10 + modal.clientHeight) + 'px';
+		function showTagAdd(){
+			tagModal.style.top = 0;
 		}
-		function add(){
+		function hideAdd(element){
+			element.style.top = -(10 + element.clientHeight) + 'px';
+		}
+		function addBookmark(){
 			var date = new Date();
 			var bookmark = {};
 			bookmark = {
@@ -160,12 +205,26 @@
 					alert(error);
 				}else{
 					title.value = url.value = '';
-					hideAdd();
+					hideAdd(bookmarkModal);
 					list();
 				}
 			});		
 		}
-
+		function addTag(){
+			var tag =  {
+				'name': tagName.value,
+				'icon': tagIconUrl.value,
+				'date': new Date()
+			};
+			ref.child("tags").push(tag, function(error){
+				if(error){
+					alert(error);
+				}else{
+					tagName.value = tagIconUrl.value = '';
+					hideAdd(tagModal);
+				}
+			});		
+		}
 
 		var config = {
 		  syncURL: "https://xkfront-5220.wilddogio.com" //输入节点 URL
