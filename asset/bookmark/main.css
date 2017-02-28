@@ -1,0 +1,140 @@
+body, ul, li{
+	font-family: 'Microsoft yahei';
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+}
+*{
+	box-sizing: border-box;
+}
+ul,li{
+	list-style: none;
+	float: left;
+	width: 100%;
+}
+ul.bookmarks{
+	width: auto;
+	border-left: 4px solid #3da1ff;
+	/*padding-left: 10px;*/
+	margin-left: 165px;
+}
+.bookmarks li{
+	position: relative;
+	border-bottom: 1px solid #ccc;
+	padding: 5px;
+	/*box-shadow: 0 0 0px #bbb;*/
+	margin: 1px 0;
+}
+.bookmarks li:before{
+	content: '';
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	position: absolute;
+	background-color: #3da1ff;
+	border: 2px solid #fff;
+	left: -9px;
+	top: 4px;
+	box-shadow: 0 0 0px #555;
+}
+.bookmarks li .timestamp{
+	position: absolute;
+	top: 2px;
+	left: -165px;
+	padding: 0 5px;
+	border-radius: 2px;
+	text-align: right;
+	background-color: #3da1ff;
+	box-shadow: 2px 1px 4px #ccc;
+	color: #fff;
+}
+.timestamp:after{
+	content: '';
+	width: 6px;
+	height: 6px;
+	background-color: inherit;
+	transform: rotateZ(45deg);
+	position: absolute;
+	right: -3px;
+	top: 6px;
+}
+.left{
+	width: 200px;
+	background-color: #f7f7f7;
+	border-right: 2px solid #ccc;
+	text-align: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}
+.right{
+	margin-left: 200px;
+	padding: 10px;
+}
+.tag{
+	/*width: 100%;*/
+	float: left;
+}
+.tag div{
+	display: inline-block;
+	padding: 2px 5px;
+	color: #fff;
+	text-shadow: 1px 0 1px #000;
+	background-color: #E6501E;
+	float: left;
+	font-size: 12px;
+	margin-right: 10px;
+	border-radius: 2px;
+
+}
+.title{
+	float: left;
+	margin: 0 20px;
+	/*font-size: 14px;*/
+}
+.title a{
+	color: #555;
+	text-decoration: none;
+}
+.modal{
+	position: fixed;
+	top: -300px;
+	background-color: #fff;
+	box-shadow: 0 0 10px #aaa;
+	border-radius: 5px;
+	padding: 20px;
+	transition: top 0.3s;
+	width: 400px;
+}
+.modal>div{
+	margin-bottom: 10px;
+}
+.modal>div>input{
+	width: 100%;
+}
+
+
+.clearfix:after{
+	content: '';
+	display: table;
+	clear: both;
+}
+.menu{
+    border-top: 1px solid #bbb;
+    padding-top: 4px;
+    width: 90%;
+    display: inline-block;
+    float: none;
+}
+.menu li a{
+	text-decoration: none;
+	color: #3da1ff;
+	display: block;
+	padding: 5px 0;
+}
+.menu li a:hover{
+	background-color: #3da1ff;
+	color: #fff;
+}
