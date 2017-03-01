@@ -3,15 +3,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>URL Bookmark</title>
+	<link rel="shortcut icon" type="image/x-icon" href="">
 	<link rel="stylesheet" href="asset/bookmark/main.css">
 </head>
 <body>
 	<div class="left">
 		<img src="https://img.wdstatic.cn/console/images/logo-632b60596e.svg" width="150" style="margin: 20px 0;">
 		<div>
-			<ul class="menu">
+			<ul class="menu" id="links">
 				<li><a href="javascript:void(0)">Recently Used</a></li>
-				<li><a href="javascript:void(0)">View By Tags</a></li>
+				<li><a href="javascript:void(0)" onclick="showTags(event)">View By Tags</a></li>
 			</ul>
 			<ul class="menu">
 				<li><a href="javascript:void(0)" onclick="showBmAdd()">Add Bookmark</a></li>
@@ -19,7 +20,10 @@
 			</ul>
 		</div>
 	</div>
-	<div class="right clearfix">
+	<div class="center">
+		<ul id="tags" class="tags"></ul>
+	</div>
+	<div class="right clearfix" id="right">
 		<ul id="bookmarks" class="bookmarks">no bookmarks.</ul>
 	</div>
 

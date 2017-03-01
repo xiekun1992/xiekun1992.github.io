@@ -34,10 +34,25 @@ function addTag(){
 		if(error){
 			alert(error);
 		}else{
+			listTags();
 			tagName.value = tagIconUrl.value = '';
 			hideAdd(tagModal);
 		}
 	});		
+}
+function showTags(e){
+	console.log(e)
+	if(!parseInt(right.style.left)){
+		var lis = Array.prototype.slice.call(e.target.parentNode.parentNode.children);
+		lis.forEach(function(o){
+			o.classList.remove('active');
+		});
+		e.target.parentNode.classList.add('active');
+		right.style.left = '300px';
+	}else{
+		e.target.parentNode.classList.remove('active');
+		right.style.left = 0;
+	}
 }
 
 var config = {
@@ -63,31 +78,52 @@ var ref = wilddog.sync().ref();
 //         // alert('数据同步到野狗云端成功完成');
 //     }
 // });
-list();
 function list(){
+	get({
+		url: config.syncURL + '/bookmarks.json',
+		success:function(data, status){
+			var html = "";
+			for(var b in data){
+				html += '<li>' +
+					'<b class="title"><a href="' + data[b].url + '" target="_blank">' + data[b].title + '</a></b>' +
+					'<div class="tag">' +
+						'<div>nodejs</div>' +
+						'<div>test</div>' +
+					'</div>' +
+					'<div class="timestamp">' +
+						(data[b].date && new Date(data[b].date).format('yyyy-MM-dd HH:mm:ss')) +
+					'</div>' +
+				'</li>';
+			}
+			bookmarks.innerHTML = html;
+		}
+	});
+}
+list();
+function listTags(){
+	get({
+		url: config.syncURL + '/tags.json',
+		success: function(data, status){
+			var html = "";
+			for(var b in data){
+				html += '<li>' +
+					'<a href="javascript:void(0)" target="_blank"><b>' + data[b].name + '</b></a>' +
+				'</li>';
+			}
+			tags.innerHTML = html;
+		}
+	});
+}
+listTags();
+
+function get(requestParams){
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState == 4){
-			console.log(xhr.responseText);
-			if(xhr.status == 200){
-				var bms = JSON.parse(xhr.responseText), html = "";
-				for(var b in bms){
-					html += '<li>' +
-						'<b class="title"><a href="' + bms[b].url + '" target="_blank">' + bms[b].title + '</a></b>' +
-						'<div class="tag">' +
-							'<div>nodejs</div>' +
-							'<div>test</div>' +
-						'</div>' +
-						'<div class="timestamp">' +
-							(bms[b].date && new Date(bms[b].date).format('yyyy-MM-dd HH:mm:ss')) +
-						'</div>' +
-					'</li>';
-				}
-				bookmarks.innerHTML = html;
-			}
+			requestParams.success(JSON.parse(xhr.responseText), xhr.status);
 		}
 	};
-	xhr.open('GET', config.syncURL + '/bookmarks.json', true);
+	xhr.open('GET', requestParams.url, true);
 	xhr.send();
 }
 

@@ -61,7 +61,8 @@ ul.bookmarks{
 .left{
 	width: 200px;
 	background-color: #f7f7f7;
-	border-right: 2px solid #ccc;
+	border-right: 1px solid #ccc;
+	box-shadow: 0 0 4px #ccc;
 	text-align: center;
 	position: fixed;
 	top: 0;
@@ -69,9 +70,37 @@ ul.bookmarks{
 	bottom: 0;
 	right: 0;
 }
-.right{
+.right,
+.center{
 	margin-left: 200px;
 	padding: 10px;
+	background-color: #fff;
+}
+.center{
+	width: 300px;
+	float: left;
+}
+.tags li{
+    width: auto;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+    margin: 0 5px 5px 0;
+}
+.tags li a{
+	text-decoration: none;
+	color: #555;
+	padding: 2px 10px;
+	float: left;
+}
+.right{
+	box-shadow: 0 0 4px #ccc;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	border-left: 1px solid #ccc;
+	transition: left .5s;
 }
 .tag{
 	/*width: 100%;*/
@@ -134,6 +163,7 @@ ul.bookmarks{
 	display: block;
 	padding: 5px 0;
 }
+.menu li.active a,
 .menu li a:hover{
 	background-color: #3da1ff;
 	color: #fff;
