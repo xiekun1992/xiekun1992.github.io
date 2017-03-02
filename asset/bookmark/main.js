@@ -79,9 +79,11 @@ var ref = wilddog.sync().ref();
 //     }
 // });
 function list(){
+	loading.style.display = 'block';
 	get({
 		url: config.syncURL + '/bookmarks.json',
 		success:function(data, status){
+			loading.style.display = 'none';
 			var html = "";
 			for(var b in data){
 				html += '<li>' +
