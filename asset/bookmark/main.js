@@ -1,12 +1,24 @@
 tagModal.style.left = bookmarkModal.style.left = (document.body.clientWidth - bookmarkModal.clientWidth) / 2 + 'px';
+function showModalBg(element){
+	modalBg.classList.add('show');
+	modalBg.onmousedown = function(){
+		this.classList.remove('show');
+		hideAdd(element);
+	};
+}
 function showBmAdd(){
+	title.focus();
+	showModalBg(bookmarkModal);
 	bookmarkModal.style.top = 0;
 }
 function showTagAdd(){
+	tagName.focus();
+	showModalBg(tagModal);
 	tagModal.style.top = 0;
 }
 function hideAdd(element){
 	element.style.top = -(10 + element.clientHeight) + 'px';
+	modalBg.classList.remove('show');
 }
 function addBookmark(){
 	var bookmark = {
