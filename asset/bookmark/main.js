@@ -53,7 +53,6 @@ function addTag(){
 	});		
 }
 function showTags(e){
-	console.log(e)
 	if(!parseInt(right.style.left)){
 		var lis = Array.prototype.slice.call(e.target.parentNode.parentNode.children);
 		lis.forEach(function(o){
@@ -81,14 +80,6 @@ var ref = wilddog.sync().ref();
 //         "presenter" : "Jack"
 //     }
 //   }
-// });
-// ref.child("Jobs").set({
-//     "full_name": "Steve Jobs",
-//     "gender": "male"
-// }, function(error) {
-//     if (error == null){
-//         // alert('数据同步到野狗云端成功完成');
-//     }
 // });
 function list(){
 	loading.style.display = 'block';
