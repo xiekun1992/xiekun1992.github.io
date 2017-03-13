@@ -31,15 +31,39 @@ function addBookmark(){
 		'tagId': bTags.value,
 		'date': new Date().getTime()
 	};
-	ref.child("bookmarks").push(bookmark, function(error){
-		if(error){
-			alert(error);
-		}else{
-			title.value = url.value = '';
-			hideAdd(bookmarkModal);
-			list();
-		}
-	});		
+	if(isBookmarkUpdate){
+		var obj = {};
+		obj[isBookmarkUpdate] = bookmark;
+		ref.child("bookmarks").update(obj, function(error){
+			if(error){
+				alert(error);
+			}else{
+				isBookmarkUpdate = false;
+				title.value = url.value = '';
+				hideAdd(bookmarkModal);
+				list(tagList);
+			}
+		});
+	}else{
+		ref.child("bookmarks").push(bookmark, function(error){
+			if(error){
+				alert(error);
+			}else{
+				isBookmarkUpdate = false;
+				title.value = url.value = '';
+				hideAdd(bookmarkModal);
+				list(tagList);
+			}
+		});		
+	}
+}
+var isBookmarkUpdate = false;
+function updateBookmark(bookmarkId){
+	isBookmarkUpdate = bookmarkId;
+	title.value = bookmarkList[bookmarkId].title;
+	url.value = bookmarkList[bookmarkId].url;
+	bTags.value = bookmarkList[bookmarkId].tagId;
+	showBmAdd();
 }
 function addTag(){
 	var tag =  {
@@ -75,22 +99,14 @@ var config = {
   syncURL: "https://xkfront-5220.wilddogio.com" //输入节点 URL
 };
 wilddog.initializeApp(config);
-var ref = wilddog.sync().ref();
+var ref = wilddog.sync().ref(), bookmarkList;
 
-
-// ref.update({
-//   "messageboard":{
-//     "message1":{
-//         "content" : "Wilddog, Cool!!!!!",
-//         "presenter" : "Jack"
-//     }
-//   }
-// });
 function list(tags){
 	loading.style.display = 'block';
 	get({
 		url: config.syncURL + '/bookmarks.json',
 		success:function(data, status){
+			bookmarkList = data;
 			loading.style.display = 'none';
 			var html = "";
 			for(var b in data){
@@ -102,16 +118,20 @@ function list(tags){
 					'<div class="timestamp">' +
 						(data[b].date && new Date(data[b].date).format('yyyy-MM-dd HH:mm:ss')) +
 					'</div>' +
+					'<a href="javascript:void(0)">删除</a>' +
+					'<a href="javascript:void(0)" onclick="updateBookmark(\'' + b + '\')">编辑</a>' +
 				'</li>';
 			}
 			bookmarks.innerHTML = html;
 		}
 	});
 }
+var tagList = [];
 function listTags(){
 	get({
 		url: config.syncURL + '/tags.json',
 		success: function(data, status){
+			tagList = data;
 			list(data);
 			var html = "", options = "";
 			for(var b in data){

@@ -125,9 +125,18 @@ ul.bookmarks{
 	margin: 0 20px;
 	/*font-size: 14px;*/
 }
-.title a{
+.title a,
+.bookmarks>li>a{
 	color: #555;
 	/*text-decoration: none;*/
+}
+.bookmarks>li>a{
+	display: none;
+	float: right;
+	margin: 0 5px;
+}
+.bookmarks>li:hover>a{
+	display: block;
 }
 .modal{
 	position: fixed;
