@@ -127,7 +127,7 @@ ul.bookmarks{
 }
 .title a{
 	color: #555;
-	text-decoration: none;
+	/*text-decoration: none;*/
 }
 .modal{
 	position: fixed;
@@ -143,8 +143,12 @@ ul.bookmarks{
 .modal>div{
 	margin-bottom: 10px;
 }
-.modal>div>input{
+.modal>div>input,
+.modal>div>select{
 	width: 100%;
+}
+.modal>div>select{
+	padding: 1px;
 }
 .modal-bg{
 	position: fixed;

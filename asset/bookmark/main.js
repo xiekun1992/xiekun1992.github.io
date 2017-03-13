@@ -1,4 +1,8 @@
-tagModal.style.left = bookmarkModal.style.left = (document.body.clientWidth - bookmarkModal.clientWidth) / 2 + 'px';
+var resize = function(){
+	tagModal.style.left = bookmarkModal.style.left = (document.body.clientWidth - bookmarkModal.clientWidth) / 2 + 'px';
+};
+resize();
+window.onresize = resize;
 function showModalBg(element){
 	modalBg.classList.add('show');
 	modalBg.onmousedown = function(){
@@ -24,6 +28,7 @@ function addBookmark(){
 	var bookmark = {
 		'title': title.value,
 		'url': url.value,
+		'tagId': bTags.value,
 		'date': new Date().getTime()
 	};
 	ref.child("bookmarks").push(bookmark, function(error){
@@ -81,7 +86,7 @@ var ref = wilddog.sync().ref();
 //     }
 //   }
 // });
-function list(){
+function list(tags){
 	loading.style.display = 'block';
 	get({
 		url: config.syncURL + '/bookmarks.json',
@@ -92,8 +97,7 @@ function list(){
 				html += '<li>' +
 					'<b class="title"><a href="' + data[b].url + '" target="_blank">' + data[b].title + '</a></b>' +
 					'<div class="tag">' +
-						'<div>nodejs</div>' +
-						'<div>test</div>' +
+						'<div>' + (data[b].tagId && tags[data[b].tagId].name) + '</div>' +
 					'</div>' +
 					'<div class="timestamp">' +
 						(data[b].date && new Date(data[b].date).format('yyyy-MM-dd HH:mm:ss')) +
@@ -104,18 +108,20 @@ function list(){
 		}
 	});
 }
-list();
 function listTags(){
 	get({
 		url: config.syncURL + '/tags.json',
 		success: function(data, status){
-			var html = "";
+			list(data);
+			var html = "", options = "";
 			for(var b in data){
 				html += '<li>' +
 					'<a href="javascript:void(0)" target="_blank"><b>' + data[b].name + '</b></a>' +
 				'</li>';
+				options += '<option value="' + b + '">' + data[b].name + '</option>';
 			}
 			tags.innerHTML = html;
+			bTags.innerHTML = options;
 		}
 	});
 }
@@ -131,6 +137,23 @@ function get(requestParams){
 	xhr.open('GET', requestParams.url, true);
 	xhr.send();
 }
+
+(function(global){
+	function Event(){
+		this.events = {};
+	}
+	Event.prototype.on = function(eventName, cb){
+		!this.events[eventName] && (this.events[eventName] = []);
+		this.events[eventName].push(cb);
+	};
+	Event.prototype.emit = function(eventName, args){
+		this.events[eventName].forEach(function(o, i){
+			o(args);
+		});
+	};
+
+	global.Event = new Event();
+})(window);
 
 Date.prototype.format = function(formatStr){
 	function addPrefixZero(number){
