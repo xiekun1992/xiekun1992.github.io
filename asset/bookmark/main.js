@@ -64,6 +64,10 @@ function updateBookmark(bookmarkId){
 	url.value = bookmarkList[bookmarkId].url;
 	bTags.value = bookmarkList[bookmarkId].tagId;
 	showBmAdd();
+} 
+function deleteBookmark(bookmarkId){
+	ref.child("bookmarks").child(bookmarkId).remove();
+	list(tagList);
 }
 function addTag(){
 	var tag =  {
@@ -118,7 +122,7 @@ function list(tags){
 					'<div class="timestamp">' +
 						(data[b].date && new Date(data[b].date).format('yyyy-MM-dd HH:mm:ss')) +
 					'</div>' +
-					'<a href="javascript:void(0)">删除</a>' +
+					'<a href="javascript:void(0)" title="双击以删除" ondblclick="deleteBookmark(\'' + b + '\')">删除</a>' +
 					'<a href="javascript:void(0)" onclick="updateBookmark(\'' + b + '\')">编辑</a>' +
 				'</li>';
 			}
