@@ -97,6 +97,7 @@ ul.bookmarks{
 	text-align: center;
 	box-shadow: 0 0 4px #ccc;
 	position: fixed;
+	overflow: auto;
 	top: 0;
 	left: 0;
 	bottom: 0;
@@ -123,6 +124,8 @@ ul.bookmarks{
 .title{
 	float: left;
 	margin: 0 20px;
+	word-break: break-all;
+    text-align: left;
 	/*font-size: 14px;*/
 }
 .title a,
