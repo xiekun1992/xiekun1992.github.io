@@ -24,6 +24,12 @@ ul.bookmarks{
 	padding: 5px;
 	/*box-shadow: 0 0 0px #bbb;*/
 	margin: 1px 0;
+	perspective: 900px;
+	perspective-origin: left;
+	left: 150%;
+    /*transition: left .5s;*/
+    opacity: 0;
+    animation: slideIntoLeft .5s .5s forwards;
 }
 .bookmarks li:before{
 	content: '';
@@ -47,7 +53,14 @@ ul.bookmarks{
 	background-color: #3da1ff;
 	box-shadow: 2px 1px 4px #ccc;
 	color: #fff;
+	transform: rotateX(90deg);
+	transform-origin: center;
+	opacity: 0;
+	animation: flipX .7s 1s forwards;
 }
+/*.bookmarks li .timestamp.flip{*/
+	/*display: block;*/
+/*}*/
 .timestamp:after{
 	content: '';
 	width: 6px;
@@ -59,10 +72,10 @@ ul.bookmarks{
 	top: 6px;
 }
 .left{
-	width: 200px;
+	width: 50px;
 	background-color: #f7f7f7;
 	border-right: 1px solid #ccc;
-	box-shadow: 0 0 4px #ccc;
+	/*box-shadow: 0 0 4px #ccc;*/
 	text-align: center;
 	position: fixed;
 	top: 0;
@@ -72,7 +85,7 @@ ul.bookmarks{
 }
 .right,
 .center{
-	margin-left: 200px;
+	margin-left: 50px;
 	padding: 10px;
 	background-color: #fff;
 }
@@ -94,8 +107,9 @@ ul.bookmarks{
 	font-size: 12px;
 }
 .right{
+	overflow: hidden;
 	text-align: center;
-	box-shadow: 0 0 4px #ccc;
+	/*box-shadow: 0 0 4px #ccc;*/
 	position: fixed;
 	overflow: auto;
 	top: 0;
@@ -263,4 +277,24 @@ ul.bookmarks{
   100%{
     transform:rotateZ(390deg);
   }
+}
+@keyframes flipX{
+	from{
+		opacity: 1;
+		transform:rotateX(90deg);
+	}
+	to{
+		opacity: 1;
+		transform:rotateX(0deg);
+	}
+}
+@keyframes slideIntoLeft{
+	from{
+		opacity: 1;
+		left: 150%;
+	}
+	to{
+		opacity: 1;
+		left: 0;
+	}
 }

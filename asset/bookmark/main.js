@@ -106,27 +106,73 @@ wilddog.initializeApp(config);
 var ref = wilddog.sync().ref(), bookmarkList;
 
 function list(tags){
+	// return ;
 	loading.style.display = 'block';
 	get({
 		url: config.syncURL + '/bookmarks.json',
 		success:function(data, status){
 			bookmarkList = data;
 			loading.style.display = 'none';
-			var html = "";
+			var html = "", index = 0;
 			for(var b in data){
-				html += '<li>' +
-					'<b class="title"><a href="' + data[b].url + '" target="_blank">' + data[b].title + '</a></b>' +
-					'<div class="tag">' +
-						'<div>' + (data[b].tagId && tags[data[b].tagId].name) + '</div>' +
-					'</div>' +
-					'<div class="timestamp">' +
-						(data[b].date && new Date(data[b].date).format('yyyy-MM-dd HH:mm:ss')) +
-					'</div>' +
-					'<a href="javascript:void(0)" title="双击以删除" ondblclick="deleteBookmark(\'' + b + '\')">删除</a>' +
-					'<a href="javascript:void(0)" onclick="updateBookmark(\'' + b + '\')">编辑</a>' +
-				'</li>';
+				var timer = setTimeout(function(b){
+					var li      	   = document.createElement('li'),
+						bTitle  	   = document.createElement('b'),
+						bTitleA   	   = document.createElement('a'),
+						divTag  	   = document.createElement('div'),
+						div     	   = document.createElement('div'),
+						divTimestamp   = document.createElement('div'),
+						aDelete   	   = document.createElement('a'),
+						aEdit     	   = document.createElement('a'),
+						frag		   = document.createDocumentFragment();
+
+					// html += '<li>' +
+					// 	'<b class="title"><a href="' + data[b].url + '" target="_blank">' + data[b].title + '</a></b>' +
+					// 	'<div class="tag">' +
+					// 		'<div>' + (data[b].tagId && tags[data[b].tagId].name) + '</div>' +
+					// 	'</div>' +
+					// 	'<div class="timestamp">' +
+					// 		(data[b].date && new Date(data[b].date).format('yyyy-MM-dd HH:mm:ss')) +
+					// 	'</div>' +
+					// 	'<a href="javascript:void(0)" title="双击以删除" ondblclick="deleteBookmark(\'' + b + '\')">删除</a>' +
+					// 	'<a href="javascript:void(0)" onclick="updateBookmark(\'' + b + '\')">编辑</a>' +
+					// '</li>';
+
+					bTitleA.setAttribute('href', data[b].url);
+					bTitleA.setAttribute('target', '_blank');
+					bTitleA.innerHTML = data[b].title;
+					bTitle.classList.add('title');
+					bTitle.appendChild(bTitleA);
+
+					divTag.classList.add('tag');
+					div.innerHTML = (data[b].tagId && tags[data[b].tagId].name);
+					divTag.appendChild(div);
+
+					divTimestamp.classList.add('timestamp');
+					divTimestamp.innerHTML = (data[b].date && new Date(data[b].date).format('yyyy-MM-dd HH:mm:ss'));
+
+					aDelete.setAttribute('href', 'javascript:void(0)');
+					aDelete.setAttribute('title', '双击以删除');
+					aDelete.ondblclick = deleteBookmark.bind(null, b);
+					aDelete.innerHTML = "删除";
+
+					aEdit.setAttribute('href', 'javascript:void(0)');
+					aEdit.onclick = updateBookmark.bind(null, b);
+					aEdit.innerHTML = "编辑";
+
+					li.appendChild(bTitle);
+					li.appendChild(divTag);
+					li.appendChild(divTimestamp);
+					li.appendChild(aDelete);
+					li.appendChild(aEdit);
+
+					frag.appendChild(li);
+					bookmarks.appendChild(frag);
+					clearTimeout(timer);
+				}.bind(null, b), index);
+				index+=100;
 			}
-			bookmarks.innerHTML = html;
+			// bookmarks.innerHTML = html;
 		}
 	});
 }
