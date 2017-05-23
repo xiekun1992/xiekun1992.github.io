@@ -158,10 +158,12 @@ define('Exhibition', ['Ground', 'Door', 'Wall', 'Workplace', 'Computer', 'Cabine
 			}, function ( xhr ) {
 				action.innerText = "正在";
 		        // console.log( (xhr.loaded / xhr.total * 100) + '% loaded' );
-		        if(xhr.loaded < xhr.total){
-		        	state.innerText = (xhr.loaded / xhr.total * 100).toFixed(2) + '%';
-		        }else{
-		        	processContainer.removeChild(processBar);
+		        if(xhr.total > 0){
+			        if(xhr.loaded < xhr.total){
+			        	state.innerText = (xhr.loaded / xhr.total * 100).toFixed(2) + '%';
+			        }else{
+			        	processContainer.removeChild(processBar);
+			        }
 		        }
 		    }, function ( xhr ) {
 		        console.error( 'An error happened' );
