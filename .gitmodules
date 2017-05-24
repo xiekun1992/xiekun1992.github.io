@@ -1,0 +1,3 @@
+[submodule "panel"]
+	path = panel
+	url = git@github.com:xiekun1992/panel.git
