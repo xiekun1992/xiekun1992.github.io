@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Overview</title>
+	<style>
+		body{
+			margin: 0;
+			font-size: 14px;
+			color: #555;
+			font-family: 'Microsoft yahei';
+		}
+		*{
+			box-sizing: border-box;
+		}
+		a{
+			text-decoration: none;
+			color: #555;
+		}
+		a:hover{
+			text-decoration: underline;
+		}
+		::selection{
+			background-color: #f3b851;
+			color: #fff;
+		}
+		.bg-col, .bg-row{
+			position: fixed;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			overflow: auto;
+		}
+		.bg-col{
+			background-image: linear-gradient(to right,transparent 0, transparent 25%,#efefef 0, #efefef 50%, transparent 0, transparent 75%, #efefef 0, #efefef 100%);
+			background-size: 8px 100%;
+		}
+		.bg-row{
+			background-image: linear-gradient(transparent 0, transparent 25%,#efefef 0, #efefef 50%, transparent 0, transparent 75%, #efefef 0, #efefef 100%);
+			background-size: 100% 8px;
+		}
+		.contianer{
+			padding: 20px;
+		}
+		.clearfix:before,
+		.clearfix:after{
+			content: '';
+			display: table;
+			clear: both;
+		}
+		ul{
+			margin: auto;
+			padding: 0;
+			list-style: none;
+			width: 1000px;
+		}
+		ul>li{
+			padding: 10px;
+			float: left;
+			position: relative;
+			/*margin: 5px;*/
+			/*height: 200px;*/
+		}
+		ul>li>section{
+			position: relative;
+			padding: 10px;
+			min-height: 250px;
+			background-color: #fff;
+			box-shadow: 0 0 5px #ccc;
+			border: 1px solid #ccc;
+		}
+		ul>li>section:hover{
+			border-color: transparent;
+		}
+		ul>li>section:hover:before{
+			content: '';
+			position: absolute;
+			/*border: 2px solid;*/
+			top: -2px;
+			left: -2px;
+			width: calc(100% + 3px);
+			height: calc(100% + 3px);
+			box-shadow: 0 0 0 2px, 0 0 4px 3px;
+		}
+		ul>li:nth-child(n+3)>section:after{
+			content: '';
+			position: absolute;
+			right: 0;
+			top: 0;
+			border: 16px solid; 
+			/*border-top-color: transparent !important; */
+			border-right-color: transparent !important;
+			border-bottom-color: transparent !important;
+			transform: rotateZ(90deg);
+		}
+		ul>li:nth-child(n+3)>section:after,
+		ul>li:nth-child(n+3)>section:hover:before{
+			color: #3da1ff;
+		}
+		ul>li:nth-child(2n+3)>section:after,
+		ul>li:nth-child(2n+3)>section:hover:before{
+			color: #f44336;
+		}
+		ul>li:nth-child(3n+3)>section:after,
+		ul>li:nth-child(3n+3)>section:hover:before{
+			color: #4caf50;
+		}
+		ul>li:nth-child(4n+3)>section:after,
+		ul>li:nth-child(4n+3)>section:hover:before{
+			color: #ffc107;
+		}
+		ul>li:first-child{
+			width: 30%;
+		}
+		ul>li:nth-child(2){
+			width: 70%;
+		}
+		ul>li:nth-child(n+3){
+			width: 25%;
+		}
+		p, h1{
+			margin: 5px 0;
+		}
+		h1{
+			font-size: 16px;
+		}
+		.thumb-nail{
+			margin-top: 5px;
+			width: 100%;
+			box-shadow: 0 0 0 1px #fff;
+			padding: 5px;
+			filter: brightness(70%);
+			transition: filter .5s;
+			max-height: 125px;
+		}
+		.thumb-nail:hover{
+			filter: brightness(100%);
+		}
+		.text-sm{
+			font-size: 12px;
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<div class="bg-col">
+			<div class="bg-row">
+				<div class="contianer clearfix">
+					<ul>
+						<li>
+							<section>
+								<h1>个人信息</h1>
+								<p>
+									<img src="" width="50%" height="125">
+									<span class="text-sm">
+										<br>
+										email: <a href="mailto:xkfront@outlook.com">xkfront@outlook.com</a>
+										<br>
+										work: web frontend
+										<br>
+										github: <a href="https://github.com/xiekun1992/">https://github.com/xiekun1992/</a>
+									</span>
+								</p>
+								<footer></footer>
+							</section>
+						</li>
+						<li>
+							<section>
+								<h1>简介</h1>
+								<p></p>
+								<footer></footer>
+							</section>
+						</li>
+						<li>
+							<section>
+								<h1>
+									<a href="">3d exhibition</a>
+								</h1>
+								<p>
+									<div>一个办公室的3D模型展示</div>
+									<div class="text-sm">es6, three.js, require.js</div>
+									<img src="http://pic1.sc.chinaz.com/Files/pic/pic9/201705/zzpic3430_s.jpg" class="thumb-nail">
+								</p>
+								<footer></footer>
+							</section>
+						</li>
+						<li>
+							<section>
+								<h1>
+									<a href="">xpanel</a>
+								</h1>
+								<p>
+									<div>一个脑图插件</div>
+									<div class="text-sm">es6, html5, css3, webpack, babeljs</div>
+									<img src="http://pic1.sc.chinaz.com/Files/pic/pic9/201705/zzpic3430_s.jpg" class="thumb-nail">
+								</p>
+								<footer></footer>
+							</section>
+						</li>
+						<li>
+							<section>
+								<h1>
+									<a href="">xCategory</a>
+								</h1>
+								<p>
+									<div>一个目录提取插件</div>
+									<div class="text-sm">javascript</div>
+									<img src="http://pic1.sc.chinaz.com/Files/pic/pic9/201705/zzpic3430_s.jpg" class="thumb-nail">
+								</p>
+								<footer></footer>
+							</section>
+						</li>
+						<li>
+							<section>
+								<h1>
+									<a href="">codefront</a>
+								</h1>
+								<p>
+									<div>一个移动端上使用的前端IDE</div>
+									<div class="text-sm">Angular2, Ionic2</div>
+									<img src="http://pic1.sc.chinaz.com/Files/pic/pic9/201705/zzpic3430_s.jpg" class="thumb-nail">
+								</p>
+								<footer></footer>
+							</section>
+						</li>
+						<li>
+							<section>
+								<h1>
+									<a href="">svg</a>
+								</h1>
+								<p>
+									<div>一个个人图标库</div>
+									<div class="text-sm">svg, AI</div>
+									<img src="http://pic1.sc.chinaz.com/Files/pic/pic9/201705/zzpic3430_s.jpg" class="thumb-nail">
+								</p>
+								<footer></footer>
+							</section>
+						</li>
+						<li>
+							<section>
+								<h1>
+									<a href="">music player</a>
+								</h1>
+								<p>
+									<div>一个音乐播放器</div>
+									<div class="text-sm">html5, javascript, css3</div>
+									<img src="http://pic1.sc.chinaz.com/Files/pic/pic9/201705/zzpic3430_s.jpg" class="thumb-nail">
+								</p>
+								<footer></footer>
+							</section>
+						</li>
+						<li>
+							<section>
+								<h1>
+									<a href="">bookmark</a>
+								</h1>
+								<p>
+									<div>一个网址书签收藏服务</div>
+									<div class="text-sm">html5, javascript, css3, java, mysql</div>
+									<img src="http://pic1.sc.chinaz.com/Files/pic/pic9/201705/zzpic3430_s.jpg" class="thumb-nail">
+								</p>
+								<footer></footer>
+							</section>
+						</li>
+						<li>
+							<section>
+								<h1>
+									<a href="">xCarousel</a>
+								</h1>
+								<p>
+									<div>一个轮播器插件</div>
+									<div class="text-sm">html5, javascript, css3</div>
+									<img src="http://pic1.sc.chinaz.com/Files/pic/pic9/201705/zzpic3430_s.jpg" class="thumb-nail">
+								</p>
+								<footer></footer>
+							</section>
+						</li>
+						<li>
+							<section>
+								<h1>
+									<a href="">blog</a>
+								</h1>
+								<p>
+									<div>个人博客</div>
+									<div class="text-sm">html5, javascript, css3, nodejs, mongodb</div>
+									<img src="http://pic1.sc.chinaz.com/Files/pic/pic9/201705/zzpic3430_s.jpg" class="thumb-nail">
+								</p>
+								<footer></footer>
+							</section>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
