@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="icon" href="assets/f3d_logo.png">
+	<title>地月系展示Demo</title>
+	<style>
+		body{
+			margin: 0;
+		}
+		img{
+			position: fixed;
+			right: 0.5rem;
+			bottom: 0.5rem;
+		    width: 8rem;
+		}
+		canvas{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<audio src="assets/horner.mp3" autoplay="true" loop="loop"></audio>
+	<img src="assets/f3dt_1.png" alt="">
+	<script>
+	var dis;
+	if(window.innerWidth > 1000){
+		dis = 500;
+	}else{
+		dis = 1000 + (window.innerWidth - 300) / 100 * 50;
+	}
+	</script>
+	<script src="libs/three.min.js"></script>
+	<script src="libs/controls/OrbitControls.js"></script>
+	<script src="src/constant_eval.js"></script>
+	<script src="src/index.js"></script>
+</body>
+</html>
