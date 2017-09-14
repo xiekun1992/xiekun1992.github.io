@@ -6,7 +6,7 @@
 })(function(){
 	function Main(config){
 		// config: bgMusic, musicBtn, textBtn, annotationBtn
-		alert(navigator.userAgent)
+		// alert(navigator.userAgent)
 
 		deviceWidth = window.deviceWidth;
 		var rem = 60;

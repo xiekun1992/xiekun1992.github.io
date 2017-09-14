@@ -83,8 +83,8 @@
 	// camera.rotation.z = 0.4;
 	// camera.position.set( 1, 1, 1 );
 	// controls.enableZoom = false;
-	// controls.minDistance = 100;
-	// controls.maxDistance = 1000;
+	controls.minDistance = 4;
+	controls.maxDistance = 100;
 	controls.update();
 
 	container.appendChild(renderer.domElement);
