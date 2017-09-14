@@ -43,15 +43,6 @@
 					closeMusic.innerText = '开启音乐';
 				}
 			}.bind(this);
-
-			window.onblur = function(){
-				musicPlay = false;
-				this.audio.pause();
-			}.bind(this);
-			window.onfocus = function(){
-				musicPlay = true;
-				this.audio.play();
-			}.bind(this);
 		}
 		if(config.textBtn){
 			var textBtnLi = document.createElement('li');
@@ -117,6 +108,18 @@
 			_x.event.on('audio.playifneed', function(){
 				if(musicPlay){
 					this.audio.play();
+				}
+			}.bind(this));
+
+			window.onblur = function(){
+			}.bind(this);
+			window.onfocus = function(){
+			}.bind(this);
+			window.addEventListener('visibilitychange', function(){
+				if(document.visibilityState === 'hidden'){
+					this.audio.pause();
+				}else if(document.visibilityState === 'visible'){
+					musicPlay && this.audio.play();
 				}
 			}.bind(this));
 		}
