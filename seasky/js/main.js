@@ -47,11 +47,11 @@
 			window.onblur = function(){
 				musicPlay = false;
 				this.audio.pause();
-			}
+			}.bind(this);
 			window.onfocus = function(){
 				musicPlay = true;
 				this.audio.play();
-			}
+			}.bind(this);
 		}
 		if(config.textBtn){
 			var textBtnLi = document.createElement('li');
