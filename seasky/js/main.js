@@ -43,6 +43,15 @@
 					closeMusic.innerText = '开启音乐';
 				}
 			}.bind(this);
+
+			window.onblur = function(){
+				musicPlay = false;
+				this.audio.pause();
+			}
+			window.onfocus = function(){
+				musicPlay = true;
+				this.audio.play();
+			}
 		}
 		if(config.textBtn){
 			var textBtnLi = document.createElement('li');
