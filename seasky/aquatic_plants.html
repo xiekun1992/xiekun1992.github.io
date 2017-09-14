@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>三（上）第一单元--水生植物</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body class="model-page">
+	<script src="js/event.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/libs/three.min.js"></script>
+	<script src="js/libs/controls/OrbitControls.js"></script>
+	<script src="js/libs/inflate.min.js"></script>
+	<script src="js/libs/curves/NURBSCurve.js"></script>
+	<script src="js/libs/curves/NURBSSurface.js"></script>
+	<script src="js/libs/curves/NURBSUtils.js"></script>
+	<script src="js/libs/FBXLoader.js"></script>
+	<script src="js/model.js"></script>
+	<script src="js/video.js"></script>
+	<script>
+		var main = _x.Main({bgMusic: 'media/plants_bg.mp3', musicBtn: true, textBtn: true});
+		var description = '水生植物。如果一种植物一生的全部或大部分时间都生活在水里，并且能够顺利繁殖下一代，我们就称这种植物为水生植物。按生长的地点不同，水生植物分为四大类。沉水型植物：金鱼藻、浮叶型植物：王莲、漂浮型植物：水葫芦、挺水型植物：荷花';
+		var currentModel = _x.Model([
+			{path: 'model/aquatic_plants/SSZW_shuihulu/SSZW_shuihulu.fbx', name: '水生植物', desc: description},
+			{path: 'model/aquatic_plants/SSZW_shuihulu/SSZW_shuihulu.fbx', name: '水葫芦', desc: description},
+			{path: 'model/aquatic_plants/SSZW_jinyuzao/SSZW_jinyuzao.fbx', name: '金鱼藻', desc: description},
+			{path: 'model/aquatic_plants/SSZW_wanglian/SSZW_wanglian.fbx', name: '王莲', desc: description},
+			{path: 'model/aquatic_plants/SSZW_hehua/hehua.fbx', name: '荷花', desc: description}
+		]);
+		_x.Video({name: '视频', src: 'media/movie.ogg'});
+	</script>
+</body>
+</html>
