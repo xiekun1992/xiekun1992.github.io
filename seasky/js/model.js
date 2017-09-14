@@ -91,10 +91,10 @@
 	window.addEventListener('resize', onResize);
 	window.addEventListener('orientationchange', function(e){alert(e)});
 	function onResize(){
-		camera.aspect = document.body.clientWidth / window.innerHeight;
+		camera.aspect = window.innerWidth / window.innerHeight;
 		// camera.position.z = cube.boundingBox.max.distanceTo(cube.boundingBox.min) / Math.tan(22.5);
 		camera.updateProjectionMatrix();
-		renderer.setSize(document.body.clientWidth, window.innerHeight);
+		renderer.setSize(window.innerWidth, window.innerHeight);
 	}
 
 
