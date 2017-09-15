@@ -99,7 +99,7 @@
 			renderer.setSize(document.body.clientWidth, window.innerHeight);
 			
 			clearTimeout(timer);
-		}, 100);
+		}, 10);
 	}
 
 
