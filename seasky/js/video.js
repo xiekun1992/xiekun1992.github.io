@@ -15,6 +15,10 @@
 	a.innerText = config.name;
 	video.src = config.src;
 	video.controls = true;
+	video.preload = 'auto';
+	video.setAttribute('playsinline', 'true');
+	video.setAttribute('webkit-playsinline', 'true');
+	video.setAttribute('x5-playsinline', 'true');
 	videoContainer.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 999; display: none;';
 	video.style.cssText = 'width: 100%; height: 100%;';
 	videoClose.innerHTML = '&times;';

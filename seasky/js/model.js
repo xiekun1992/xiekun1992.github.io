@@ -91,6 +91,7 @@
 	window.addEventListener('resize', onResize);
 	window.addEventListener('orientationchange', onResize);
 	function onResize(){
+		// 解决IOS手机浏览器横竖屏切换不了的问题
 		var timer = setTimeout(function(){
 			camera.aspect = document.body.clientWidth / window.innerHeight;
 			// camera.position.z = cube.boundingBox.max.distanceTo(cube.boundingBox.min) / Math.tan(22.5);
