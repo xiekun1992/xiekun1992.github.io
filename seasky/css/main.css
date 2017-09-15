@@ -1,9 +1,12 @@
 body{
-	/*margin: 0;*/
+	margin: 0;
 	/*max-width: 750px;*/
-	/*margin: auto;*/
+	margin: auto;
 	position: relative;
 	overflow: hidden;
+}
+body.common-page{
+    margin: 8px;
 }
 body.model-page{
     background-image: radial-gradient(#858789, #282A2B);
