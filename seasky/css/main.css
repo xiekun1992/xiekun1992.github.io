@@ -178,7 +178,10 @@ video::-webkit-media-controls-panel {
     width: calc(100% + 0.8rem); /* Adjust as needed */
 }
 
-
+video::-webkit-media-controls-mute-button,
+video::-webkit-media-controls-volume-slider {
+    display: none;
+}
 
 /*模型注释*/
 .annotation{

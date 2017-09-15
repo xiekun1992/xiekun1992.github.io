@@ -25,15 +25,18 @@
 	video.style.cssText = 'width: 100%; height: 100%;';
 	// videoClose.innerHTML = '&times;';
 	// videoClose.style.cssText = 'color: rgb(255, 255, 255); position: absolute; top: 0; left: 0; font-size: 0.8rem; line-height: 0.8;';
-	a.onclick = playVideo;
+	a.onclick = function(){
+		history.pushState({
+			title: 'video play'
+		}, 'video play', 'video.html');
+		playVideo();
+	}
+
 	function playVideo(){
 		_x.event.trigger('audio.stop');
 		video.src = config.src;
 		video.play();
 		videoContainer.style.display = 'block';
-		history.pushState({
-			title: 'video play'
-		}, 'video play', 'video.html');
 	}
 	// videoClose.onclick = 
 	function stopVideo(){
