@@ -175,6 +175,7 @@
 	}
 	var loader = new THREE.FBXLoader(manager);
 	function loadModel(path){
+		_x.event.trigger('loading.start');
 		if(currentModel.path !== path){
 			scene.remove(currentModel.model);
 		}
@@ -185,6 +186,7 @@
 			cameraFocus(getComplexBoundingBox(currentModel.model));
 			console.log(camera.position);
 			scene.add(currentModel.model);
+			_x.event.trigger('loading.stop');
 		}else{
 			loader.load(path, function(object){
 				addDoubleSideMaterial(object);
@@ -209,6 +211,7 @@
 				}
 
 				scene.add(object);
+				_x.event.trigger('loading.stop');
 			}, function(xhr){
 				if(xhr.lengthComputable){
 					var percentComplete = xhr.loaded / xhr.total * 100;

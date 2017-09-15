@@ -124,6 +124,17 @@
 				}
 			}.bind(this));
 		}
+
+		var loading = document.createElement('div');
+		loading.setAttribute('id', 'loading');
+		document.body.appendChild(loading);
+
+		_x.event.on('loading.start', function(){
+			loading.style.display = 'block';
+		});
+		_x.event.on('loading.stop', function(){
+			loading.style.display = 'none';
+		});
 	}
 
 	return Main;

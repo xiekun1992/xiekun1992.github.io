@@ -196,3 +196,36 @@ video::-webkit-media-controls-volume-slider {
     white-space: nowrap;
     pointer-events: none;
 }
+
+#loading {
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    top: calc(50% - 20px);
+    left: calc(50% - 20px);
+    border: 3px solid rgba(64, 171, 226, 0.5);
+    border-radius: 50%;
+    box-sizing: border-box;
+    animation: Load 1s linear infinite;
+    display: none;
+}
+#loading:before {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: rgb(76, 205, 238);
+    top: 0px;
+    left: 0px;
+    content: '';
+    border-radius: 50%;
+}
+
+@keyframes Load{
+    from{
+        transform: rotateZ(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
