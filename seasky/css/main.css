@@ -175,7 +175,7 @@ video::-webkit-media-controls-enclosure {
 }
 
 video::-webkit-media-controls-panel {
-    width: calc(100% + 0.4rem); /* Adjust as needed */
+    /*width: calc(100% + 0.4rem);*/ /* Adjust as needed */
 }
 
 video::-webkit-media-controls-mute-button,

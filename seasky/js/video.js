@@ -23,7 +23,7 @@
 	videoContainer.style.cssText = 'position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; z-index: 999; display: none;';
 	video.style.cssText = 'width: 100%; height: 100%;';
 	videoClose.innerHTML = '&times;';
-	videoClose.style.cssText = 'color: rgb(255, 255, 255); position: absolute; top: 1rem; right: 0.1rem; font-size: 0.8rem; line-height: 0.8;';
+	videoClose.style.cssText = 'color: rgb(255, 255, 255); position: absolute; top: 0.1rem; right: 0.1rem; font-size: 0.8rem; line-height: 0.8;';
 	a.onclick = function(){
 		_x.event.trigger('audio.stop');
 		video.src = config.src;
