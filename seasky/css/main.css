@@ -44,7 +44,7 @@ img{
 	float: left;
 }
 h2{
-	font-size: 0.3rem;
+	font-size: 0.32rem;
 	text-align: center;
 }
 h2.title:before,
@@ -53,13 +53,20 @@ h2.title:after{
     color: #094BC3;
 }
 h3{
-    font-size: 0.25rem;
+    font-size: 0.26rem;
     text-align: center;
     margin: -0.14rem 0;
 }
 p{
-	font-size: 0.26rem;
+	font-size: 0.24rem;
 	/*text-indent: 2em;*/
+}
+.common-page p.text{
+    margin-left: 0.14rem;
+    margin-right: 0.14rem;
+}
+.common-page p.img+p.text{
+    margin-top: -0.14rem;
 }
 div.divider{
     margin: 1rem auto;
