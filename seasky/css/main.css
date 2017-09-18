@@ -8,9 +8,6 @@ body{
 body.common-page{
     margin: 8px;
 }
-body.common-page p{
-    font-family: cursive;
-}
 body.model-page{
     background-image: radial-gradient(#858789, #282A2B);
     background-position: center center;
