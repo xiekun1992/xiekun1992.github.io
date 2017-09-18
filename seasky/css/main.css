@@ -59,6 +59,7 @@ h3{
 }
 p{
 	font-size: 0.24rem;
+    word-break: break-all;
 	/*text-indent: 2em;*/
 }
 .common-page p.text{
