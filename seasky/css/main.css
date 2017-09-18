@@ -8,6 +8,9 @@ body{
 body.common-page{
     margin: 8px;
 }
+body.common-page p{
+    font-family: cursive;
+}
 body.model-page{
     background-image: radial-gradient(#858789, #282A2B);
     background-position: center center;
@@ -28,6 +31,10 @@ ul, li{
 a{
 	text-decoration: none;
 }
+.text-center{
+    text-align: center;
+}
+
 
 .clearfix:before,
 .clearfix:after{
@@ -43,13 +50,28 @@ h2{
 	font-size: 0.3rem;
 	text-align: center;
 }
+h2.title:before,
+h2.title:after{
+    content: '/';
+    color: #094BC3;
+}
+h3{
+    font-size: 0.25rem;
+    text-align: center;
+    margin: -0.14rem 0;
+}
 p{
 	font-size: 0.26rem;
 	/*text-indent: 2em;*/
 }
+div.divider{
+    margin: 1rem auto;
+}
 p>span{
-	display: block;
-	text-align: center;
+    margin-top: 0.1rem;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
 }
 .side-btn,
 .model-btns{
