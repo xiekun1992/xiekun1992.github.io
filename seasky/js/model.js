@@ -19,6 +19,8 @@
 		a.setAttribute('href', 'javascript:void(0)');
 		a.innerText = o.name;
 		a.onclick = function(){
+			if(isloadingModel) return;
+
 			for(var i = 0; i < ul.children.length; i++){
 				if(ul.children[i] !== a.parentNode){
 					ul.children[i].removeAttribute('class');
@@ -99,7 +101,7 @@
 			renderer.setSize(document.body.clientWidth, window.innerHeight);
 			
 			clearTimeout(timer);
-		}, 10);
+		}, 100);
 	}
 
 
@@ -173,9 +175,11 @@
 	manager.onProgress = function(item, loaded, total){
 		console.log(item, loaded, total);
 	}
-	var loader = new THREE.FBXLoader(manager);
+	var loader = new THREE.FBXLoader(manager), isloadingModel = false;
 	function loadModel(path){
 		_x.event.trigger('loading.start');
+		isloadingModel = true;
+
 		if(currentModel.path !== path){
 			scene.remove(currentModel.model);
 		}
@@ -187,6 +191,7 @@
 			console.log(camera.position);
 			scene.add(currentModel.model);
 			_x.event.trigger('loading.stop');
+			isloadingModel = false;
 		}else{
 			loader.load(path, function(object){
 				addDoubleSideMaterial(object);
@@ -212,6 +217,7 @@
 
 				scene.add(object);
 				_x.event.trigger('loading.stop');
+				isloadingModel = false;
 			}, function(xhr){
 				if(xhr.lengthComputable){
 					var percentComplete = xhr.loaded / xhr.total * 100;

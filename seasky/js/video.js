@@ -32,6 +32,7 @@
 	}
 	videoClose.onclick = function(){
 		video.pause();
+		video.src = '';
 		videoContainer.style.display = 'none';
 		_x.event.trigger('audio.playifneed');
 	}
