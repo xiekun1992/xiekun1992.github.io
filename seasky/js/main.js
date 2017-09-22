@@ -125,8 +125,17 @@
 			}.bind(this));
 		}
 
-		var loading = document.createElement('div');
+		var loading = document.createElement('div'),
+			loadingText = document.createElement('div'),
+			loadingAnimation = document.createElement('div');
+
+		loadingText.setAttribute('class', 'progress');
+		loadingAnimation.setAttribute('class', 'animation');
+
 		loading.setAttribute('id', 'loading');
+		loading.appendChild(loadingText);
+		loading.appendChild(loadingAnimation);
+
 		document.body.appendChild(loading);
 
 		_x.event.on('loading.start', function(){
@@ -134,6 +143,9 @@
 		});
 		_x.event.on('loading.stop', function(){
 			loading.style.display = 'none';
+		});
+		_x.event.on('loading.progress', function(data){
+			loadingText.innerText = data;
 		});
 	}
 

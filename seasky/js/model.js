@@ -177,8 +177,11 @@
 	}
 	var loader = new THREE.FBXLoader(manager), isloadingModel = false;
 	function loadModel(path){
+		// 控制模型载入
 		_x.event.trigger('loading.start');
 		isloadingModel = true;
+		// 隐藏注释
+		// removeAnnotations();
 
 		if(currentModel.path !== path){
 			scene.remove(currentModel.model);
@@ -222,9 +225,12 @@
 				if(xhr.lengthComputable){
 					var percentComplete = xhr.loaded / xhr.total * 100;
 					console.log(Math.round(percentComplete, 2) + '% downloaded');
+					_x.event.trigger('loading.progress', Math.round(percentComplete, 2));
 				}
 			}, function(xhr){
 				console.error(xhr);
+				_x.event.trigger('loading.stop');
+				isloadingModel = false;
 			});
 		}
 	}
