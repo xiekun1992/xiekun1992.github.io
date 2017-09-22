@@ -196,7 +196,7 @@
 			loader.load(path, function(object){
 				addDoubleSideMaterial(object);
 				modelCache[path] = object;
-				camera.rotation.set(Math.PI / 6, Math.PI / 4, 0);
+				// camera.rotation.set(Math.PI / 6, Math.PI / 4, 0);
 				currentModel.model = object;
 
 				// object.rotation.y = Math.PI;
@@ -288,8 +288,10 @@
 	function toScreenPosition(obj, camera) {
 	    var vector = new THREE.Vector3();
 	    // TODO: need to update this when resize window
-	    var widthHalf = 0.5*renderer.context.canvas.width;
-	    var heightHalf = 0.5*renderer.context.canvas.height;
+	    // var widthHalf = 0.5*renderer.context.canvas.width;
+	    // var heightHalf = 0.5*renderer.context.canvas.height;
+	    var widthHalf = 0.5*document.body.clientWidth;
+	    var heightHalf = 0.5*document.body.clientHeight;
 	    
 	    obj.updateMatrixWorld();
 	    vector.setFromMatrixPosition(obj.matrixWorld);
