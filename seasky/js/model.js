@@ -3,7 +3,7 @@
 		this._x = {};
 	}
 	this._x.Model = factory;
-})(function(config, annotationInfo){
+})(function(config, annotationInfo, customModel){
 	var container = document.createElement('div');
 	container.setAttribute('class', 'clearfix model-container');
 	document.body.appendChild(container);
@@ -85,8 +85,8 @@
 	// camera.rotation.z = 0.4;
 	// camera.position.set( 1, 1, 1 );
 	// controls.enableZoom = false;
-	controls.minDistance = 4;
-	controls.maxDistance = 100;
+	// controls.minDistance = 4;
+	// controls.maxDistance = 100;
 	controls.update();
 
 	container.appendChild(renderer.domElement);
@@ -196,7 +196,7 @@
 			loader.load(path, function(object){
 				addDoubleSideMaterial(object);
 				modelCache[path] = object;
-				object.rotation.set(Math.PI / 6, Math.PI / 4, 0);
+				camera.rotation.set(Math.PI / 6, Math.PI / 4, 0);
 				currentModel.model = object;
 
 				// object.rotation.y = Math.PI;
