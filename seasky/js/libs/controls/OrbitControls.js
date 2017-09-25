@@ -294,6 +294,9 @@ THREE.OrbitControls = function ( object, domElement ) {
 		sphericalDelta.phi -= angle;
 
 	}
+	// 导出相机旋转方法
+	this.rotateLeft = rotateLeft;
+	this.rotateUp = rotateUp;
 
 	var panLeft = function () {
 

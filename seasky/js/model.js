@@ -120,6 +120,11 @@
 	// 根据模型边界自动调整相机位置
 	function cameraFocus(boundingBox){
 		camera.lookAt(0, 0, 0);
+		// camera.rotation.set(Math.PI / 6, Math.PI / 4, 0);
+		// 由于OrbitControls 接管了camera，需要通过相应的方法设置相机的旋转
+		controls.rotateLeft(Math.PI / 4); // y轴
+		controls.rotateUp(Math.PI / 6); // x轴
+
 		camera.position.set(0, 0, boundingBox.max.distanceTo(boundingBox.min) / Math.tan(fov / 2));
 	}
 	// 计算多层分组模型的边界框
@@ -255,7 +260,6 @@
 		changeAnnotation(isAnnotationShow);
 		cameraFocus(getComplexBoundingBox(currentModel.model));
 		scene.add(currentModel.model);
-		camera.rotation.set(Math.PI / 6, Math.PI / 4, 0);
 	}
 
 
