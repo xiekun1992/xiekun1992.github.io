@@ -40,15 +40,16 @@
 				{"text": "鞍座","lookAt":{"x":0.5571968401903026,"y":0.21034864841722783,"z":-0.8032964131570537},"position":{"x":7.283068046225509,"y":46.81689811876419,"z":-43.651004380981625}},
 				{"text": "坐杆","lookAt":{"x":0.807533894664419,"y":0.5455778151768615,"z":-0.22412910688921453},"position":{"x":1.279679092253886,"y":29.339345215616582,"z":-27.92643371366892}},
 				{"text": "把立","lookAt":{"x":-0.8494619148619008,"y":0.5006698833682985,"z":-0.1665656719949445},"position":{"x":-1.273338333922709,"y":46.92831045590187,"z":27.448970120958528}}],
-				extraModel: function(THREE){
-					var plane = new THREE.Mesh(new THREE.PlaneGeometry(50, 50), new THREE.MeshLambertMaterial({color: 0xcccccc}));
-					plane.position.set(0, 0, 0);
+				extraModel: (function(){
+					var plane = new THREE.Mesh(new THREE.CylinderGeometry(100, 100, 2, 40), new THREE.MeshLambertMaterial({color: 0x555555, side: THREE.DoubleSide}));
+					plane.position.set(0, -54, 0);
+					plane.rotation.x = -0.01;
 					return plane;
-				}
+				})()
 			},
 			{path: 'model/bike/wheel.fbx', name: '导向系统', desc: '由车把、前叉、前轴、前轮等部件组成。乘骑者可以通过操纵车把来改变行驶方向并保持车身平衡。'},
 			{path: 'model/bike/brake.fbx', name: '驱动系统', desc: '由脚蹬、中轴、牙盘、曲柄、链条、飞轮、后轴、后轮等部件组成。人力脚蹬通过曲柄，链轮、链条、飞轮、后轴等部件传动，从而使自行车不断前进。'},
-			{path: 'model/bike/gear.fbx', name: '制动系统', desc: '它由车闸部件组成、乘骑者可以随时操纵车闸，使行驶的自行车减速、停驶、确保行车安全。'}
+			{path: 'model/bike/gszd/gszd.FBX', name: '制动系统', desc: '它由车闸部件组成、乘骑者可以随时操纵车闸，使行驶的自行车减速、停驶、确保行车安全。'}
 		], function(){
 
 		});

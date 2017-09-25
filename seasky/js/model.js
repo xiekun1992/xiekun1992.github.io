@@ -47,7 +47,7 @@
 				return m.path === currentModel.path;
 			}).pop().annotation, currentModel.model);
 			
-			if(currentModel.model.animations[ 0 ]){
+			if(currentModel.model && currentModel.model.animations[ 0 ]){
 				currentModel.mixers.forEach(function(mixer){
 					var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
 					action.stop();
@@ -57,7 +57,7 @@
 		}else{
 			// 显示标注，开启动画
 			removeAnnotations();
-			if(currentModel.model.animations[ 0 ]){
+			if(currentModel.model && currentModel.model.animations[ 0 ]){
 				currentModel.mixers.forEach(function(mixer){
 					var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
 					action.play();
@@ -172,7 +172,7 @@
 	}
 
 	// loader model
-	var modelCache = {}, currentModel = {path: '', model: null, mixers: []};
+	var modelCache = {}, currentModel = {path: '', model: null, mixers: [], extraModel: null};
 	var manager = new THREE.LoadingManager();
 	manager.onProgress = function(item, loaded, total){
 		console.log(item, loaded, total);
@@ -183,6 +183,10 @@
 		_x.event.trigger('loading.start');
 		isloadingModel = true;
 
+		var currentConfig = config.filter(function(m, i){
+			return m.path === path;
+		}).pop();
+
 		if(currentModel.path !== path){
 			scene.remove(currentModel.model);
 		}
@@ -190,23 +194,19 @@
 		changeDesc();
 
 		if(modelCache[path]){
-			currentModel.model = modelCache[path].model;
-			currentModel.mixers = modelCache[path].mixers;
-			cameraFocus(getComplexBoundingBox(currentModel.model));
-			changeAnnotation(isAnnotationShow);
-
-			scene.add(currentModel.model);
+			setCurrentModel({
+				model: modelCache[path].model,
+				mixers: modelCache[path].mixers,
+				extraModel: currentConfig.extraModel
+			});
 			
 			_x.event.trigger('loading.stop');
 			isloadingModel = false;
 		}else{
 			loader.load(path, function(object){
 				addDoubleSideMaterial(object);
+				console.log(object)
 
-				// object.rotation.y = Math.PI;
-
-				cameraFocus(getComplexBoundingBox(object));
-				// camera.rotation.set(Math.PI / 6, Math.PI / 4, 0);
 				var mixers = [];
 				try{
 					object.mixer = new THREE.AnimationMixer( object );
@@ -220,11 +220,13 @@
 					console.log('this model has no animations');
 				}
 				modelCache[path] = {model: object, mixers: mixers};
-				currentModel.model = object;
-				currentModel.mixers = mixers;
-				changeAnnotation(isAnnotationShow);
 
-				scene.add(object);
+				setCurrentModel({
+					model: object,
+					mixers: mixers,
+					extraModel: currentConfig.extraModel
+				});
+
 				_x.event.trigger('loading.stop');
 				isloadingModel = false;
 			}, function(xhr){
@@ -240,6 +242,20 @@
 				isloadingModel = false;
 			});
 		}
+	}
+	function setCurrentModel(model){
+		scene.remove(currentModel.extraModel);
+
+		currentModel.model = model.model;
+		currentModel.mixers = model.mixers;
+		currentModel.extraModel = model.extraModel;
+		if(currentModel.extraModel){
+			scene.add(currentModel.extraModel);
+		}
+		changeAnnotation(isAnnotationShow);
+		cameraFocus(getComplexBoundingBox(currentModel.model));
+		scene.add(currentModel.model);
+		camera.rotation.set(Math.PI / 6, Math.PI / 4, 0);
 	}
 
 
