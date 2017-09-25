@@ -3,7 +3,7 @@
 		this._x = {};
 	}
 	this._x.Model = factory;
-})(function(config, annotationInfo, customModel){
+})(function(config){
 	var container = document.createElement('div');
 	container.setAttribute('class', 'clearfix model-container');
 	document.body.appendChild(container);
@@ -36,26 +36,36 @@
 		}
 	});
 	container.appendChild(ul);
-	// modelNav.style.left = 'calc(50% - ' + (modelNav.clientWidth/2) + 'px)';
-	_x.event.on('annotation.change', function(isShow){
+
+	var isAnnotationShow = false;
+	_x.event.on('annotation.change', changeAnnotation);
+	function changeAnnotation(isShow){
+		isAnnotationShow = isShow;
 		if(isShow){
 			// 显示标注，停止动画
-			generateAnnotations();
-			mixers.forEach(function(mixer){
-				var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
-				action.stop();
-			});
+			generateAnnotations(config.filter(function(m, i){
+				return m.path === currentModel.path;
+			}).pop().annotation, currentModel.model);
+			
+			if(currentModel.model.animations[ 0 ]){
+				currentModel.mixers.forEach(function(mixer){
+					var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
+					action.stop();
+				});
+			}
 			startAnimation = false;
 		}else{
 			// 显示标注，开启动画
 			removeAnnotations();
-			mixers.forEach(function(mixer){
-				var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
-				action.play();
-			});
+			if(currentModel.model.animations[ 0 ]){
+				currentModel.mixers.forEach(function(mixer){
+					var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
+					action.play();
+				});
+			}
 			startAnimation = true;
 		}
-	});
+	}
 
 	_x.event.on('desc.change', changeDesc);
 	function changeDesc(args){
@@ -66,19 +76,11 @@
 	}
 
 	// 3d模型展示
-
-	var scene = new THREE.Scene(), mixers = [], clock = new THREE.Clock(), startAnimation = true;
+	var scene = new THREE.Scene(), clock = new THREE.Clock(), startAnimation = true;
 	var fov = 45, camera = new THREE.PerspectiveCamera(fov, document.body.clientWidth/window.innerHeight, 0.1, 1000);
 	var renderer = new THREE.WebGLRenderer({antialias: true, alpha: true});
 	renderer.setPixelRatio(window.devicePixelRatio);
-	// renderer.setClearColor(0x555555);
 	renderer.setSize(document.body.clientWidth, window.innerHeight);
-	// renderer.shadowMap.enabled = true;
-
-	// var cameraHelper = new THREE.CameraHelper(camera);
-	// scene.add(cameraHelper);
-	// var axisHelper = new THREE.AxisHelper(25);
-	// scene.add(axisHelper);
 
 	var controls = new THREE.OrbitControls( camera, renderer.domElement );
 	controls.target.set( 0, 0, 0.1 );
@@ -170,7 +172,7 @@
 	}
 
 	// loader model
-	var modelCache = {}, currentModel = {path: '', model: null};
+	var modelCache = {}, currentModel = {path: '', model: null, mixers: []};
 	var manager = new THREE.LoadingManager();
 	manager.onProgress = function(item, loaded, total){
 		console.log(item, loaded, total);
@@ -180,32 +182,32 @@
 		// 控制模型载入
 		_x.event.trigger('loading.start');
 		isloadingModel = true;
-		// 隐藏注释
-		// removeAnnotations();
 
 		if(currentModel.path !== path){
 			scene.remove(currentModel.model);
 		}
 		currentModel.path = path;
 		changeDesc();
+
 		if(modelCache[path]){
-			currentModel.model = modelCache[path];
+			currentModel.model = modelCache[path].model;
+			currentModel.mixers = modelCache[path].mixers;
 			cameraFocus(getComplexBoundingBox(currentModel.model));
-			console.log(camera.position);
+			changeAnnotation(isAnnotationShow);
+
 			scene.add(currentModel.model);
+			
 			_x.event.trigger('loading.stop');
 			isloadingModel = false;
 		}else{
 			loader.load(path, function(object){
 				addDoubleSideMaterial(object);
-				modelCache[path] = object;
-				// camera.rotation.set(Math.PI / 6, Math.PI / 4, 0);
-				currentModel.model = object;
 
 				// object.rotation.y = Math.PI;
 
 				cameraFocus(getComplexBoundingBox(object));
-
+				// camera.rotation.set(Math.PI / 6, Math.PI / 4, 0);
+				var mixers = [];
 				try{
 					object.mixer = new THREE.AnimationMixer( object );
 					if(object.mixer){
@@ -217,6 +219,10 @@
 				}catch(e){
 					console.log('this model has no animations');
 				}
+				modelCache[path] = {model: object, mixers: mixers};
+				currentModel.model = object;
+				currentModel.mixers = mixers;
+				changeAnnotation(isAnnotationShow);
 
 				scene.add(object);
 				_x.event.trigger('loading.stop');
@@ -228,6 +234,7 @@
 					_x.event.trigger('loading.progress', Math.round(percentComplete, 2));
 				}
 			}, function(xhr){
+				changeAnnotation(isAnnotationShow);
 				console.error(xhr);
 				_x.event.trigger('loading.stop');
 				isloadingModel = false;
@@ -270,11 +277,15 @@
 		// group.add(plane);
 		group.translate(150, 150, 150);
 
+		// group.children.forEach(function(t){
+		// 	t.
+		// });
 		return group;
 	}
 	var annotations = [];
-	var annoInfo = annotationInfo || [];
-	function generateAnnotations(){
+	function generateAnnotations(annoInfo, model){
+		annoInfo = annoInfo || [];
+		removeAnnotations();
 		annoInfo.forEach(function(o){
 			var divAnnotation = document.createElement('div');
 			divAnnotation.classList.add('annotation');
@@ -282,7 +293,6 @@
 			document.body.appendChild(divAnnotation);
 
 			var g = createTool(true);
-			g.rotation.z = -Math.PI;
 			g.position.set( 0, 0, 0 );
 			g.lookAt( o.lookAt );
 
@@ -321,9 +331,9 @@
 	// 渲染循环
 	function render(){
 		requestAnimationFrame(render);
-		if (startAnimation && mixers.length > 0 ) {
-			for ( var i = 0; i < mixers.length; i ++ ) {
-				mixers[ i ].update( clock.getDelta() );
+		if (startAnimation && currentModel.mixers.length > 0 ) {
+			for ( var i = 0; i < currentModel.mixers.length; i ++ ) {
+				currentModel.mixers[ i ].update( clock.getDelta() );
 			}
 		}
 		if(currentModel && currentModel.model){
