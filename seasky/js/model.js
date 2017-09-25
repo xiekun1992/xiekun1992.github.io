@@ -162,16 +162,20 @@
 	}
 
 	function addDoubleSideMaterial(obj){
-		if(obj.type === "Group"){
+		if(obj.type === "Group" || obj.type === "Object3D"){
 			obj.children.forEach(function(c){
-				if(c.type === "Group"){
+				if(c.type === "Group" || c.type === "Object3D"){
 					addDoubleSideMaterial(c);
 				}else if(c.type === "Mesh"){
 					c.material.side = THREE.DoubleSide;
+					c.material.transparent = true;
+					// c.material.opacity = 0.1;
 				}
 			});
 		}else if(obj.type === "Mesh"){
 			obj.material.side = THREE.DoubleSide;
+			obj.material.transparent = true;
+			// obj.material.opacity = 0.1;
 		}
 	}
 
