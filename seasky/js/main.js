@@ -76,6 +76,8 @@
 			btnContainer.appendChild(annotationBtnLi);
 			var annotationShow = false;
 			annotationBtn.onclick = function(){
+				if(contentLoading) return ;
+				
 				if(annotationShow){
 					annotationBtnLi.removeAttribute('class', 'active');
 					annotationBtn.innerText = '显示标注';
@@ -124,10 +126,11 @@
 				}
 			}.bind(this));
 		}
-
+		// loading动画
 		var loading = document.createElement('div'),
 			loadingText = document.createElement('div'),
-			loadingAnimation = document.createElement('div');
+			loadingAnimation = document.createElement('div'),
+			contentLoading = false;
 
 		loadingText.setAttribute('class', 'progress');
 		loadingAnimation.setAttribute('class', 'animation');
@@ -140,9 +143,11 @@
 
 		_x.event.on('loading.start', function(){
 			loading.style.display = 'block';
+			contentLoading = true;
 		});
 		_x.event.on('loading.stop', function(){
 			loading.style.display = 'none';
+			contentLoading = false;
 		});
 		_x.event.on('loading.progress', function(data){
 			loadingText.innerText = data;

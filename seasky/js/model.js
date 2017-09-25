@@ -110,7 +110,6 @@
 	var ambientLight = new THREE.AmbientLight(0xcccccc);
 	scene.add(ambientLight);
 	var directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.6);
-	// directionalLight1.castShadow = true;
 	directionalLight1.position.set(180.1, 163.8, 75);
 	var directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
 	directionalLight1.position.set(-126.4, 100, 31.2);
@@ -216,6 +215,7 @@
 				try{
 					object.mixer = new THREE.AnimationMixer( object );
 					if(object.mixer){
+						object.mixer.timeScale = 3/4;
 						mixers.push( object.mixer );
 
 						var action = object.mixer.clipAction( object.animations[ 0 ] );
@@ -294,12 +294,7 @@
 		group.add(sphere3);
 		group.add(sphere);
 		group.add(cylinder);
-		// group.add(plane);
 		group.translate(150, 150, 150);
-
-		// group.children.forEach(function(t){
-		// 	t.
-		// });
 		return group;
 	}
 	var annotations = [];
