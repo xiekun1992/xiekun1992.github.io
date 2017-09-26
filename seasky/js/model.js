@@ -8,7 +8,7 @@
 	container.setAttribute('class', 'clearfix model-container');
 	document.body.appendChild(container);
 
-	// config:[{path, name, desc}[, {path, name, desc}]*]
+	// config:[{id, path, name, desc}[, {id, path, name, desc}]*]
 	// 模型切换按钮组
 	var ul = document.createElement('ul');
 	ul.setAttribute('class', 'model-nav');
@@ -27,7 +27,7 @@
 				}
 			}
 			a.parentNode.setAttribute('class', 'active');
-			loadModel(o.path);
+			loadModel(o.path, o.id);
 		}
 		li.appendChild(a);
 		ul.appendChild(li);
@@ -41,36 +41,39 @@
 	_x.event.on('annotation.change', changeAnnotation);
 	function changeAnnotation(isShow){
 		isAnnotationShow = isShow;
-		if(isShow){
-			// 显示标注，停止动画
-			generateAnnotations(config.filter(function(m, i){
-				return m.path === currentModel.path;
-			}).pop().annotation, currentModel.model);
-			
-			if(currentModel.model && currentModel.model.animations[ 0 ]){
-				currentModel.mixers.forEach(function(mixer){
-					var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
-					action.stop();
-				});
+		var annotationArr = config.filter(function(m, i){
+			return m.id === currentModel.id;
+		}).pop().annotation;
+		if(annotationArr && annotationArr.length > 0){
+			if(isShow){
+				// 显示标注，停止动画
+				generateAnnotations(annotationArr, currentModel.model);
+				
+				if(currentModel.model && currentModel.model.animations[ 0 ]){
+					currentModel.mixers.forEach(function(mixer){
+						var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
+						action.stop();
+					});
+				}
+				startAnimation = false;
+			}else{
+				// 显示标注，开启动画
+				removeAnnotations();
+				if(currentModel.model && currentModel.model.animations[ 0 ]){
+					currentModel.mixers.forEach(function(mixer){
+						var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
+						action.play();
+					});
+				}
+				startAnimation = true;
 			}
-			startAnimation = false;
-		}else{
-			// 显示标注，开启动画
-			removeAnnotations();
-			if(currentModel.model && currentModel.model.animations[ 0 ]){
-				currentModel.mixers.forEach(function(mixer){
-					var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
-					action.play();
-				});
-			}
-			startAnimation = true;
 		}
 	}
 
 	_x.event.on('desc.change', changeDesc);
-	function changeDesc(args){
+	function changeDesc(){
 		var modelConfigInfo = config.filter(function(o){
-			return o.path === currentModel.path;
+			return o.id === currentModel.id;
 		}).pop();
 		document.getElementById('text').innerText = modelConfigInfo.desc;
 	}
@@ -186,31 +189,32 @@
 		console.log(item, loaded, total);
 	}
 	var loader = new THREE.FBXLoader(manager), isloadingModel = false;
-	function loadModel(path){
+	function loadModel(path, id){
 		// 控制模型载入
 		_x.event.trigger('loading.start');
 		isloadingModel = true;
 
 		var currentConfig = config.filter(function(m, i){
-			return m.path === path;
+			return m.id === id;
 		}).pop();
 
 		if(currentModel.path !== path){
 			scene.remove(currentModel.model);
 		}
-		currentModel.path = path;
-		changeDesc();
-
 		if(modelCache[path]){
 			setCurrentModel({
+				id: id,
+				path: path,
 				model: modelCache[path].model,
 				mixers: modelCache[path].mixers,
 				extraModel: currentConfig.extraModel
 			});
+			changeDesc();
 			
 			_x.event.trigger('loading.stop');
 			isloadingModel = false;
 		}else{
+			document.getElementById('text').innerText = "";
 			loader.load(path, function(object){
 				addDoubleSideMaterial(object);
 				console.log(object)
@@ -231,10 +235,13 @@
 				modelCache[path] = {model: object, mixers: mixers};
 
 				setCurrentModel({
+					id: id,
+					path: path,
 					model: object,
 					mixers: mixers,
 					extraModel: currentConfig.extraModel
 				});
+				changeDesc();
 
 				_x.event.trigger('loading.stop');
 				isloadingModel = false;
@@ -255,6 +262,8 @@
 	function setCurrentModel(model){
 		scene.remove(currentModel.extraModel);
 
+		currentModel.id = model.id;
+		currentModel.path = model.path;
 		currentModel.model = model.model;
 		currentModel.mixers = model.mixers;
 		currentModel.extraModel = model.extraModel;
@@ -265,7 +274,6 @@
 		cameraFocus(getComplexBoundingBox(currentModel.model));
 		scene.add(currentModel.model);
 	}
-
 
 	// 模型标注功能
 	// 创建标注
@@ -408,8 +416,9 @@
 	}
 	render();
 
-
 	currentModel.path = config[0].path;
-	loadModel(currentModel.path);
+	currentModel.id = config[0].id;
+	loadModel(currentModel.path, currentModel.id);
+
 	return currentModel;
 });
