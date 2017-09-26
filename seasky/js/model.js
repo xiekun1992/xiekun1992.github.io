@@ -218,7 +218,7 @@
 		}else{
 			document.getElementById('text').innerText = "";
 			removeAnnotations();
-			
+
 			loader.load(path, function(object){
 				addDoubleSideMaterial(object);
 				console.log(object)
@@ -275,6 +275,12 @@
 		}
 		changeAnnotation(isAnnotationShow);
 		cameraFocus(getComplexBoundingBox(currentModel.model));
+
+		var customOp = config.filter(function(c){
+			return c.id === currentModel.id;
+		}).pop().customOp;
+		customOp && customOp(currentModel.model);
+
 		scene.add(currentModel.model);
 		
 		changeDesc();
