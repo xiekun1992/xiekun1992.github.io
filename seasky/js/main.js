@@ -143,6 +143,7 @@
 
 		_x.event.on('loading.start', function(){
 			loading.style.display = 'block';
+			loadingText.innerText = "";
 			contentLoading = true;
 		});
 		_x.event.on('loading.stop', function(){
