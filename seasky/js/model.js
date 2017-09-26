@@ -131,6 +131,10 @@
 		controls.rotateUp(Math.PI / 6); // x轴
 
 		camera.position.set(0, 0, boundingBox.max.distanceTo(boundingBox.min) / Math.tan(fov / 2));
+
+		var cameraZ = boundingBox.max.distanceTo(boundingBox.min) / Math.tan(fov / 2);
+		controls.minDistance = cameraZ - cameraZ * 0.7;
+		controls.maxDistance = cameraZ + cameraZ * 0.7;
 	}
 	// 计算多层分组模型的边界框
 	function getComplexBoundingBox(object3D) {
