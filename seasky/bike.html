@@ -71,7 +71,8 @@
 		var currentModel = _x.Model([
 			{id: 0, path: 'model/bike/1/zxc_n(2).FBX', name: '自行车', desc: '自行车，又称脚踏车或单车，通常是二轮的小型陆上车辆。人骑上车后，以脚踩踏板为动力，是绿色环保的交通工具。按照自行车各部件的工作特点，可将其分为导向系统、驱动系统、制动系统。此外，为了安全和美观，以及从实用出发，还装配了车灯，支架等部件。', annotation: annotation,
 				extraModel: plane, 
-				customOp: function(model){
+				customOp: function(model, controls){
+					controls.maxPolarAngle = Math.PI / 2;
 					model.children.forEach(function(c, i){
 						addTransparentMaterial(c, 1);
 					});
@@ -80,7 +81,8 @@
 			{id: 2, path: 'model/bike/1/zxc_n(2).FBX', name: '导向系统', desc: '由车把、前叉、前轴、前轮等部件组成。乘骑者可以通过操纵车把来改变行驶方向并保持车身平衡。', 
 				extraModel: plane, 
 				annotation: front, 
-				customOp: function(model){
+				customOp: function(model, controls){
+					controls.maxPolarAngle = Math.PI / 2;
 					model.children.forEach(function(c, i){
 						if(~[2, 0].indexOf(i)){
 							addTransparentMaterial(c, 0.1);
@@ -93,7 +95,8 @@
 			{id: 3, path: 'model/bike/1/zxc_n(2).FBX', name: '驱动系统', desc: '由脚蹬、中轴、牙盘、曲柄、链条、飞轮、后轴、后轮等部件组成。人力脚蹬通过曲柄，链轮、链条、飞轮、后轴等部件传动，从而使自行车不断前进。', 
 				extraModel: plane, 
 				annotation: back, 
-				customOp: function(model){
+				customOp: function(model, controls){
+					controls.maxPolarAngle = Math.PI / 2;
 					model.children.forEach(function(c, i){
 						if(~[2, 1].indexOf(i)){
 							addTransparentMaterial(c, 0.1);

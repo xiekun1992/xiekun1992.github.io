@@ -284,7 +284,7 @@
 		var customOp = config.filter(function(c){
 			return c.id === currentModel.id;
 		}).pop().customOp;
-		customOp && customOp(currentModel.model);
+		customOp && customOp(currentModel.model, controls);
 
 		scene.add(currentModel.model);
 		
