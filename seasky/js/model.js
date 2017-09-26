@@ -130,9 +130,10 @@
 		controls.rotateLeft(Math.PI / 4); // y轴
 		controls.rotateUp(Math.PI / 6); // x轴
 
-		camera.position.set(0, 0, boundingBox.max.distanceTo(boundingBox.min) / Math.tan(fov / 2));
-
 		var cameraZ = boundingBox.max.distanceTo(boundingBox.min) / Math.tan(fov / 2);
+
+		camera.position.set(0, 0, cameraZ);
+		// 根据模型大小设置相机的缩放区间
 		controls.minDistance = cameraZ - cameraZ * 0.7;
 		controls.maxDistance = cameraZ + cameraZ * 0.7;
 	}
