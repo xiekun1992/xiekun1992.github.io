@@ -44,11 +44,12 @@
 		var annotationArr = config.filter(function(m, i){
 			return m.id === currentModel.id;
 		}).pop().annotation;
-		if(annotationArr && annotationArr.length > 0){
-			if(isShow){
-				// 显示标注，停止动画
-				generateAnnotations(annotationArr, currentModel.model);
+
+		if(isShow){
+			// 显示标注，停止动画
+			generateAnnotations(annotationArr, currentModel.model);
 				
+			if(annotationArr && annotationArr.length > 0){
 				if(currentModel.model && currentModel.model.animations[ 0 ]){
 					currentModel.mixers.forEach(function(mixer){
 						var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
@@ -56,9 +57,11 @@
 					});
 				}
 				startAnimation = false;
-			}else{
-				// 显示标注，开启动画
-				removeAnnotations();
+			}
+		}else{
+			// 显示标注，开启动画
+			removeAnnotations();
+			if(annotationArr && annotationArr.length > 0){
 				if(currentModel.model && currentModel.model.animations[ 0 ]){
 					currentModel.mixers.forEach(function(mixer){
 						var action = mixer.clipAction( currentModel.model.animations[ 0 ] );
@@ -209,12 +212,13 @@
 				mixers: modelCache[path].mixers,
 				extraModel: currentConfig.extraModel
 			});
-			changeDesc();
 			
 			_x.event.trigger('loading.stop');
 			isloadingModel = false;
 		}else{
 			document.getElementById('text').innerText = "";
+			removeAnnotations();
+			
 			loader.load(path, function(object){
 				addDoubleSideMaterial(object);
 				console.log(object)
@@ -241,7 +245,6 @@
 					mixers: mixers,
 					extraModel: currentConfig.extraModel
 				});
-				changeDesc();
 
 				_x.event.trigger('loading.stop');
 				isloadingModel = false;
@@ -273,6 +276,8 @@
 		changeAnnotation(isAnnotationShow);
 		cameraFocus(getComplexBoundingBox(currentModel.model));
 		scene.add(currentModel.model);
+		
+		changeDesc();
 	}
 
 	// 模型标注功能
