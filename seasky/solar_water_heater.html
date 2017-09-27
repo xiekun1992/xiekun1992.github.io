@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
-	<title>四（上）第一单元《台风》</title>
+	<title>五年级（上）第二单元太阳能热水器</title>
 	<link rel="stylesheet" href="css/main.css">
 </head>
 <body class="scroll common-page">
@@ -17,12 +17,24 @@
 	<p class="text">
 		阳光穿过吸热管的第一层玻璃照到第二层玻璃的黑色吸热层上，将太阳光能的热量吸收，由于两层玻璃之间是真空隔热的，热量不能向外传，只能传给玻璃管里面的水，使玻璃管内的水加热，加热的水变轻沿着玻璃管受热面往上进入保温储水桶，桶内温度相对较低的水沿着玻璃管背光面进入玻璃管补充，如此不断循环，使保温储水桶内的水不断加热，从而达到热水的目的。
 	</p>
-	<video src="media/seed.mp4" controls="controls"></video>
+	<video id="video1" src="media/solar_heater.mp4" controls="controls"></video>
 	<div class="divider"></div>
 	<script src="js/event.js"></script>
 	<script src="js/main.js"></script>
 	<script>
 		_x.Main({bgMusic: 'media/solar_heater_bg.mp3', musicBtn: true});
+		// video1.onplaying = function(){
+		// 	_x.event.trigger('audio.stop');
+		// }
+		// video1.onpause = function(){
+		// 	_x.event.trigger('audio.playifneed');
+		// }
+		video1.addEventListener('x5videoenterfullscreen', function(){
+			_x.event.trigger('audio.stop');
+		});
+		video1.addEventListener('x5videoexitfullscreen', function(){
+			_x.event.trigger('audio.playifneed');
+		});
 	</script>
 </body>
 </html>
