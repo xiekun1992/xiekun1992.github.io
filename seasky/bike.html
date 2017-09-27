@@ -106,10 +106,12 @@
 					});
 				}
 			},
-			{id: 4, path: 'model/bike/gszd/gszd.FBX', name: '制动系统', desc: '它由车闸部件组成、乘骑者可以随时操纵车闸，使行驶的自行车减速、停驶、确保行车安全。'}
-		], function(){
-
-		});
+			{id: 4, path: 'model/bike/gszd/gszd.FBX', name: '制动系统', desc: '它由车闸部件组成、乘骑者可以随时操纵车闸，使行驶的自行车减速、停驶、确保行车安全。', 
+				customOp: function(model, controls){
+					controls.maxPolarAngle = Math.PI;
+				}
+			}
+		]);
 		// _x.Video({name: '视频', src: 'media/movie.ogg'});
 	</script>
 </body>
