@@ -94,7 +94,9 @@
 		desc.setAttribute('class', 'desc side-btn');
 		desc.setAttribute('id', 'text');
 
-		document.body.appendChild(btnContainer);
+		if(btnContainer.children.length > 0){
+			document.body.appendChild(btnContainer);
+		}
 		document.body.appendChild(desc);
 		
 		if(config.bgMusic){

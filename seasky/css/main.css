@@ -25,6 +25,17 @@ ul, li{
 	padding: 0;
 	margin: 0;
 }
+ul.list, ul.list li, ul.list ul {
+    list-style-type: circle;
+    font-size: 14px;
+    padding-left: 2em;
+}
+ul.list li{
+    padding: 0;
+}
+.sub-title-1{
+    font-size: 0.25rem;
+}
 a{
 	text-decoration: none;
 }

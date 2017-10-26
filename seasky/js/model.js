@@ -78,7 +78,7 @@
 		var modelConfigInfo = config.filter(function(o){
 			return o.id === currentModel.id;
 		}).pop();
-		document.getElementById('text').innerText = modelConfigInfo.desc;
+		document.getElementById('text').innerHTML = modelConfigInfo.desc;
 	}
 
 	// 3d模型展示
@@ -115,9 +115,9 @@
 
 	var ambientLight = new THREE.AmbientLight(0xcccccc);
 	scene.add(ambientLight);
-	var directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.6);
+	var directionalLight1 = new THREE.DirectionalLight(0xffffff, 0.2);
 	directionalLight1.position.set(180.1, 163.8, 75);
-	var directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.5);
+	var directionalLight2 = new THREE.DirectionalLight(0xffffff, 0.4);
 	directionalLight1.position.set(-126.4, 100, 31.2);
 	scene.add(directionalLight1);
 	scene.add(directionalLight2);
