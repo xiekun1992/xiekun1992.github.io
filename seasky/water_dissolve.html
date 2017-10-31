@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+	<title>四年级（上）第二单元水能溶解一些物质</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body class="scroll common-page">
+	<h2 class="title">水能溶解一些物质</h2>
+	<p class="text">
+		小朋友，你知道过滤的操作步骤是怎么样的吗？让我来告诉你把！<br>
+		1、	漏斗下端长的一侧靠着烧杯内壁<br>
+		2、	滤纸润湿，贴在漏斗内壁<br>
+		3、	滤纸边缘要比漏斗边缘低一点<br>
+		4、	玻璃棒下端靠着三层滤纸<br>
+		5、	烧杯杯口靠着玻璃棒<br>
+		6、	液面要比滤纸边缘低一点<br>
+	</p>
+	<p class="clearfix img">
+		<img src="img/water_dissolve/1.jpg" alt="">
+	</p>
+		<p class="clearfix img">
+		<img src="img/water_dissolve/2.jpg" alt="">
+	</p>
+	<p class="clearfix img">
+		<img src="img/water_dissolve/3.jpg" alt="">
+	</p>
+	<p class="clearfix img">
+		<img src="img/water_dissolve/4.jpg" alt="">
+	</p>
+	<p class="clearfix img">
+		<img src="img/water_dissolve/5.jpg" alt="">
+	</p>
+	<p class="clearfix img">
+		<img src="img/water_dissolve/6.jpg" alt="">
+	</p>	
+	<p class="clearfix img">
+		<img src="img/water_dissolve/7.jpg" alt="">
+	</p>
+	<p class="clearfix img">
+		<img src="img/water_dissolve/8.jpg" alt="">
+	</p>
+	<p class="clearfix img">
+		<img src="img/water_dissolve/9.jpg" alt="">
+	</p>
+	<video id="video1" src="media/water_dissolve.mp4" controls="controls"></video>
+	<div class="divider"></div>
+	<script src="js/event.js"></script>
+	<script src="js/main.js"></script>
+	<script>
+		_x.Main({bgMusic: 'media/water_dissolve.mp3', musicBtn: true});
+
+		video1.addEventListener('x5videoenterfullscreen', function(){
+			_x.event.trigger('audio.stop');
+		});
+		video1.addEventListener('x5videoexitfullscreen', function(){
+			_x.event.trigger('audio.playifneed');
+		});
+	</script>
+</body>
+</html>

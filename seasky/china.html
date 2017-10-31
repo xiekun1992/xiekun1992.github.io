@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>三年级（上）第三单元砖瓦和陶器、瓷器</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body class="model-page">
+	<script src="js/event.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/libs/three.min.js"></script>
+	<script src="js/libs/controls/OrbitControls.js"></script>
+	<script src="js/libs/inflate.min.js"></script>
+	<script src="js/libs/curves/NURBSCurve.js"></script>
+	<script src="js/libs/curves/NURBSSurface.js"></script>
+	<script src="js/libs/curves/NURBSUtils.js"></script>
+	<script src="js/libs/FBXLoader.js"></script>
+	<script src="js/model.js"></script>
+	<script src="js/video.js"></script>	
+	<script>
+		var main = _x.Main({bgMusic: 'media/seed_bg.mp3', musicBtn: false, textBtn: true});
+		var currentModel = _x.Model([
+			{id: 0, path: 'model/china/zhuan/zhuan.fbx', name: '砖', desc: '砖，主要用于建筑，是经过粘土的高温烘烤形成，外形多为直角六面体。非常坚硬，能够承载一定的重量，我们房屋墙体上用的主要材料就是它了。'},
+			{id: 1, path: 'model/china/wa/wa.fbx', name: '瓦', desc: '瓦，铺屋顶用的建筑材料，一般用泥土烧成，也有用水泥等材料制成的，形状有拱形的、平的或半个圆筒形，在我国，瓦的生产要比砖早。'},
+			{id: 2, path: 'model/china/taoguan/taoguan.fbx', name: '陶器', desc: '陶器，是用黏土或陶土经捏制成形后烧制而成的器具。陶器历史悠久，在新石器时代就已初见简单粗糙的陶器。陶器在古代作为一种生活用品，在现在一般作为工艺品收藏。陶器的发明是人类最早利用化学变化改变天然性质的开端，是人类社会由旧石器时代发展到新石器时代的标志之一。'},
+			{id: 3, path: 'model/china/qinghuaci/qinghuaci.fbx', name: '瓷器', desc: '中国是瓷器的故乡，瓷器是汉族劳动人民的一个重要的创造。它是由瓷石、高岭土、石英石、莫来石等烧制而成，外表施有玻璃质釉或彩绘。瓷器的成形要通过在窑内经过高温(约1280℃-1400℃)烧制，瓷器表面的釉色会因为温度的不同从而发生各种化学变化。'}
+		]);
+		// _x.Video({name: '视频', src: 'media/seed.mp4'});
+	</script>
+</body>
+</html>

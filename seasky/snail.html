@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+	<title>三年级（上）第二单元蜗牛</title>
+	<link rel="stylesheet" href="css/main.css">
+</head>
+<body class="model-page">
+	<script src="js/event.js"></script>
+	<script src="js/main.js"></script>
+	<script src="js/libs/three.min.js"></script>
+	<script src="js/libs/controls/OrbitControls.js"></script>
+	<script src="js/libs/inflate.min.js"></script>
+	<script src="js/libs/curves/NURBSCurve.js"></script>
+	<script src="js/libs/curves/NURBSSurface.js"></script>
+	<script src="js/libs/curves/NURBSUtils.js"></script>
+	<script src="js/libs/FBXLoader.js"></script>
+	<script src="js/model.js"></script>
+	<script src="js/video.js"></script>	
+	<script>
+		var main = _x.Main({bgMusic: 'media/snail.mp3', musicBtn: true, textBtn: true});
+		var currentModel = _x.Model([
+			{id: 0, path: 'model/snail/sw_dw_wn_nz/woniu.fbx', name: '蜗牛', desc: '蜗牛属于软体动物，腹足纲。蜗牛种类很多，全世界已发现25000多种，每年5~11月间是蜗牛活动的季节，它喜欢昼伏夜出，白天多潜伏于杂草丛生、树木葱郁、农作物繁茂的阴暗潮湿环境，以及腐殖质多而疏松的土壤里或藏在枯枝、落叶层和洞穴中。如果遇地面干燥或大瀑雨，蜗牛往往会爬到树干、作物茎和叶子背面。蜗牛主要以植物茎叶、花果及根为食。是农业害虫之一，也是家畜、家禽某些寄生虫的中间宿主。<br>除此之外，蜗牛还具有很高的食用和药用价值。营养丰富，味道鲜美，属高蛋白，低脂肪，低胆固醇，富含20多种氨基酸的高档营养滋补品呢。'}
+		]);
+		// _x.Video({name: '视频', src: 'media/seed.mp4'});
+	</script>
+</body>
+</html>
