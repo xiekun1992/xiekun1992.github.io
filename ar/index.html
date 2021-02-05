@@ -2,28 +2,70 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
   <title>Document</title>
-  <!-- include A-Frame obviously -->
+  <!-- import aframe and then ar.js with image tracking / location based features -->
   <script src="./aframe.min.js"></script>
-  <!-- include ar.js for A-Frame -->
-  <script src="./aframe-ar.js"></script>
+  <script src="./fox/aframe-ar-nft.js"></script>
+  
+  <!-- style for the loader -->
+  <style>
+    .arjs-loader {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .arjs-loader div {
+      text-align: center;
+      font-size: 1.25em;
+      color: white;
+    }
+  </style>
 </head>
-<body style='margin : 0px; overflow: hidden;'>
-  <a-scene embedded arjs>
-    <!-- define your gltf asset -->
-    <a-assets>
-      <a-asset-item id="fox" src="./fox_idle/scene.gltf"></a-asset-item>
-      <!-- <a-asset-item id="covid19" src="./coronavirus__covid-19__virus/scene.gltf"></a-asset-item> -->
-    </a-assets>
-    <a-marker preset="hiro">
-      <!-- <a-entity gltf-model="http://localhost:8081/fox_idle/scene.gltf" position="0 0 0" scale="0.1 0.1 0.1"></a-entity> -->
-      <a-entity gltf-model="#fox" position="0 0 0" scale="0.1 0.1 0.1"></a-entity>
-      <!-- <a-entity gltf-model="#covid19" position="0 0 0" scale="0.05 0.05 0.05"></a-entity> -->
-    </a-marker>
-    <!-- <a-box position='0 0.5 0' material='opacity: 0.5;'></a-box> -->
-    
-    <!-- <a-marker-camera preset='hiro'></a-marker-camera> -->
+
+<body style="margin : 0px; overflow: hidden;">
+  <!-- minimal loader shown until image descriptors are loaded. Loading may take a while according to the device computational power -->
+  <div class="arjs-loader">
+    <div>Loading, please wait...</div>
+  </div>
+
+  <!-- a-frame scene -->
+  <a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: true;"
+  >
+    <!-- a-nft is the anchor that defines an Image Tracking entity -->
+    <!-- on 'url' use the path to the Image Descriptors created before. -->
+    <!-- the path should end with the name without the extension e.g. if file is 'pinball.fset' the path should end with 'pinball' -->
+    <a-nft
+      type="nft"
+      url="fox/fu"
+      smooth="true"
+      smoothCount="10"
+      smoothTolerance=".01"
+      smoothThreshold="5"
+    >
+      <!-- <a-box position='0 0.5 0' material='opacity: 0.5;'></a-box> -->
+        <!-- as a child of the a-nft entity, you can define the content to show. here's a GLTF model entity -->
+        <a-entity
+            gltf-model="fox_idle/scene.gltf"
+            scale="30 30 30"
+            position="102 150 -40"
+            rotation="90 180 0"
+        >
+        </a-entity>
+    </a-nft>
+    <!-- static camera that moves according to the device movemenents -->
     <a-entity camera></a-entity>
   </a-scene>
 </body>
